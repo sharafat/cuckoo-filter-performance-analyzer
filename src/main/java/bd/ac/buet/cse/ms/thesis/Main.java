@@ -14,8 +14,12 @@ public class Main {
     private static final String SERVER_IP = "127.0.0.1";
     private static final String KEYSPACE = "cuckoo_test";
 
-    private static final String QUERY_1 = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" > 1 AND \"Month\" < 9 LIMIT 1000 ALLOW FILTERING;";
+    private static final String QUERY_1_1K_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" > 1 AND \"Month\" < 9 LIMIT 1000 ALLOW FILTERING;";
+    private static final String QUERY_1_10K_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" > 1 AND \"Month\" < 9 LIMIT 10000 ALLOW FILTERING;";
+    private static final String QUERY_1_100K_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" > 1 AND \"Month\" < 9 LIMIT 100000 ALLOW FILTERING;";
+    private static final String QUERY_1_1M_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" > 1 AND \"Month\" < 9 LIMIT 1000000 ALLOW FILTERING;";
 
+    private static final String QUERY_TO_RUN = QUERY_1_1K_ROWS;
     private static final int QUERY_RUN_LENGTH = 1000;
 
     private static List<QueryTrace> queryTraces = new ArrayList<QueryTrace>();
@@ -28,7 +32,7 @@ public class Main {
 
         Session session = cluster.connect(KEYSPACE);
 
-        BoundStatement statement = session.prepare(QUERY_1).enableTracing().bind();
+        BoundStatement statement = session.prepare(QUERY_TO_RUN).enableTracing().bind();
 
         for (int i = 0; i < QUERY_RUN_LENGTH; i++) {
             ResultSet resultSet = session.execute(statement);
