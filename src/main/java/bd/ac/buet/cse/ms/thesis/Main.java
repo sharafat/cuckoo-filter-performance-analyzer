@@ -5,6 +5,7 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
 
+import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,39 +15,56 @@ public class Main {
     private static final String SERVER_IP = "127.0.0.1";
     private static final String KEYSPACE = "cuckoo_test";
 
-    private static final String QUERY_1_1K_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" > 1 AND \"Month\" < 9 LIMIT 1000 ALLOW FILTERING;";
-    private static final String QUERY_1_10K_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" > 1 AND \"Month\" < 9 LIMIT 10000 ALLOW FILTERING;";
-    private static final String QUERY_1_100K_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" > 1 AND \"Month\" < 9 LIMIT 100000 ALLOW FILTERING;";
-    private static final String QUERY_1_1M_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" > 1 AND \"Month\" < 9 LIMIT 1000000 ALLOW FILTERING;";
+    private static final String QUERY_1_1K_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" = 9 LIMIT 1000 ALLOW FILTERING;";
+    private static final String QUERY_1_10K_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" = 9 LIMIT 10000 ALLOW FILTERING;";
+    private static final String QUERY_1_100K_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" = 9 LIMIT 100000 ALLOW FILTERING;";
+    private static final String QUERY_1_1M_ROWS = "SELECT * FROM air_traffic WHERE \"Year\" = 2008 AND \"Month\" = 9 LIMIT 1000000 ALLOW FILTERING;";
 
     private static final String QUERY_TO_RUN = QUERY_1_1K_ROWS;
     private static final int QUERY_RUN_LENGTH = 1000;
 
     private static List<QueryTrace> queryTraces = new ArrayList<QueryTrace>();
+    private static List<Integer> queryExecutionDurations = new ArrayList<Integer>(QUERY_RUN_LENGTH);
 
     public static void main(String[] args) {
+        try {
+            Cluster cluster = Cluster.builder()
+                    .addContactPoints(SERVER_IP)
+                    .build();
 
-        Cluster cluster = Cluster.builder()
-                .addContactPoints(SERVER_IP)
-                .build();
+            Session session = cluster.connect(KEYSPACE);
 
-        Session session = cluster.connect(KEYSPACE);
+            BoundStatement statement = session.prepare(QUERY_TO_RUN).enableTracing().bind();
 
-        BoundStatement statement = session.prepare(QUERY_TO_RUN).enableTracing().bind();
+            for (int i = 0; i < QUERY_RUN_LENGTH; i++) {
+                ResultSet resultSet = session.execute(statement);
 
-        for (int i = 0; i < QUERY_RUN_LENGTH; i++) {
-            ResultSet resultSet = session.execute(statement);
+                com.datastax.driver.core.QueryTrace queryTrace = resultSet.getExecutionInfo().getQueryTrace();
+                int duration = getQueryExecutionDuration(queryTrace);
+                queryExecutionDurations.add(duration);
 
-            com.datastax.driver.core.QueryTrace queryTrace = resultSet.getExecutionInfo().getQueryTrace();
-
-            addQueryTraceResult(queryTrace);
+//            addQueryTraceResult(queryTrace);
 //            printQueryTrace(queryTrace);
+            }
+
+//        printQueryDurations(queryTraces);
+            printDurations(queryExecutionDurations);
+
+            session.close();
+            cluster.close();
+        } finally {
+            SoundUtils.tone(100,250);
+        }
+    }
+
+    private static int getQueryExecutionDuration(com.datastax.driver.core.QueryTrace queryTrace) {
+        for (com.datastax.driver.core.QueryTrace.Event event : queryTrace.getEvents()) {
+            if (event.getDescription().startsWith(QueryTraceEvent.EVENT_READ)) {
+                return event.getSourceElapsedMicros();
+            }
         }
 
-        printQueryDurations(queryTraces);
-
-        session.close();
-        cluster.close();
+        throw new RuntimeException("Event " + QueryTraceEvent.EVENT_READ + " not found in query traces!");
     }
 
     private static void addQueryTraceResult(com.datastax.driver.core.QueryTrace queryTrace) {
@@ -125,6 +143,24 @@ public class Main {
                 getAverage(queryTraces, null)
         );
         System.out.println("--------------------------------------------------------------------------------------------");
+    }
+
+    private static void printDurations(List<Integer> durations) {
+        System.out.println("----------------");
+        for (int duration : durations) {
+            System.out.println(duration);
+        }
+        System.out.println("----------------");
+        System.out.println("Avg. = " + getAverage(durations));
+    }
+
+    private static long getAverage(List<Integer> durations) {
+        long totalDuration = 0;
+        for (int duration : durations) {
+            totalDuration += duration;
+        }
+
+        return totalDuration / durations.size();
     }
 
     private static long getAverage(List<QueryTrace> queryTraces, String eventName) {
