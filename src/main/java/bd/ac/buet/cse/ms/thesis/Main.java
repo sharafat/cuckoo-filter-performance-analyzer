@@ -29,10 +29,15 @@ public class Main {
     };
 
     private static final int[] IDS_NOT_HAVING_DATA = new int[]{
-            -1, -2, -3, -4, -5, -6, -7, -8, -9, -10
+            -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12
+    };
+
+    private static final String[] CARRIERS_HAVING_DATA_DELETED = new String[]{
+            "OH", "FL", "YV", "EV", "AA", "DL", "XE", "UA"
     };
 
     private static final Integer[] FRACTIONS = new Integer[]{0, 3, 6, 9, 12};
+    private static final Integer[] FRACTIONS_FOR_DELETION = new Integer[]{0, 2, 4, 6, 8};
 
     private static Map<Integer, Double> fractionDurationMap = new LinkedHashMap<Integer, Double>(FRACTIONS.length);
     private static List<Double> durations = new ArrayList<Double>(CARRIERS_HAVING_DATA.length);
@@ -41,8 +46,9 @@ public class Main {
     private static final int TEST_LOOKUP_PERFORMANCE_POSITIVE_QUERY_FRACTION_WISE_MANY_KEYS = 2;
     private static final int TEST_LOOKUP_PERFORMANCE_FILTER_LOAD_WISE = 3;
     private static final int TEST_LOOKUP_AFTER_DELETE = 4;
+    private static final int TEST_LOOKUP_AFTER_DELETE_DELETED_QUERY_FRACTION_WISE = 5;
 
-    private static final int CURRENT_TEST = TEST_LOOKUP_PERFORMANCE_FILTER_LOAD_WISE;
+    private static final int CURRENT_TEST = TEST_LOOKUP_AFTER_DELETE;
 
     public static void main(String[] args) {
         try {
@@ -67,6 +73,9 @@ public class Main {
                     break;
                 case TEST_LOOKUP_PERFORMANCE_FILTER_LOAD_WISE:
                     runLookupPerformanceTestFilterLoadWise(session, lookupPreparedStatement);
+                    break;
+                case TEST_LOOKUP_AFTER_DELETE_DELETED_QUERY_FRACTION_WISE:
+                    runLookupAfterDeleteTestForVaryingDeletedDataPercentage(session, lookupPreparedStatement, deletePreparedStatement);
                     break;
                 default:
                     throw new RuntimeException("Unknown value for CURRENT_TEST: " + CURRENT_TEST);
@@ -174,6 +183,43 @@ public class Main {
 
         for (Double duration : durations.toArray(new Double[]{})) {
             System.out.println(duration);
+        }
+    }
+
+    private static void runLookupAfterDeleteTestForVaryingDeletedDataPercentage(Session session, PreparedStatement lookupPreparedStatement,
+                                                 PreparedStatement deletePreparedStatement) {
+        for (String key : CARRIERS_HAVING_DATA_DELETED) {
+            BoundStatement deleteBoundStatement = deletePreparedStatement.bind(key);
+            executeQuery(-1, "DELETING_DATA", key, session, deleteBoundStatement);
+        }
+
+        for (String key : CARRIERS_HAVING_DATA_DELETED) {
+            BoundStatement statement = lookupPreparedStatement.bind(key);
+            executeQuery(-1, "READING_BACK_DELETED_DATA", key, session, statement);
+        }
+
+        for (Integer fraction : FRACTIONS_FOR_DELETION) {
+            long start = System.currentTimeMillis();
+
+            for (int j = 0; j < fraction; j++) {
+                BoundStatement statement = lookupPreparedStatement.bind(CARRIERS_HAVING_DATA_DELETED[j]);
+                executeQuery(fraction, "_DELETED_DATA", CARRIERS_HAVING_DATA_DELETED[j], session, statement);
+            }
+
+            for (int j = fraction; j < CARRIERS_HAVING_DATA_DELETED.length; j++) {
+                BoundStatement statement = lookupPreparedStatement.bind(CARRIERS_HAVING_DATA[j]);
+                executeQuery(fraction, "HAS_DATA", CARRIERS_HAVING_DATA[j], session, statement);
+            }
+
+            long end = System.currentTimeMillis();
+
+            double duration = (end - start) / 1000.0;
+
+            fractionDurationMap.put(fraction, duration);
+        }
+
+        for (Map.Entry<Integer, Double> entry : fractionDurationMap.entrySet()) {
+            System.out.println(entry.getValue());
         }
     }
 
