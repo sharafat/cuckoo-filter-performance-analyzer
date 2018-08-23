@@ -42,15 +42,15 @@ public class MainCluster extends Main {
             TEST_LOOKUP_PERFORMANCE_FOR_FRACTION_OF_QUERIES_IN_OTHER_NODES_ALL_DELETED
     };
 
-    private static final String LOOKUP_QUERY = "SELECT * FROM air_traffic WHERE \"Id\" = %s";
-    private static final String LOOKUP_QUERY_IN_CLAUSE = "SELECT * FROM air_traffic WHERE \"Id\" IN (%s)";
+    private static final String LOOKUP_QUERY = "SELECT * FROM air_traffic WHERE \"FlightNum\" = '%s'";
+    private static final String LOOKUP_QUERY_IN_CLAUSE = "SELECT * FROM air_traffic WHERE \"FlightNum\" IN ('%s')";
 
-    private static final int[] TWO_NODES_CLUSTER_NODE_1_KEYS = new int[]{3, 6, 7, 9, 12, 14, 17, 20, 21, 24, 25, 26};
-    private static final int[] TWO_NODES_CLUSTER_NODE_2_KEYS = new int[]{1, 2, 4, 5, 8, 10, 11, 13, 15, 16, 18, 19};
+    private static final int[] TWO_NODES_CLUSTER_NODE_1_KEYS = new int[]{904, 761, 5472, 3724, 3715, 235, 2093, 3768, 2625, 835, 600, 1086};
+    private static final int[] TWO_NODES_CLUSTER_NODE_2_KEYS = new int[]{2378, 1179, 3481, 1474, 1197, 1016, 2907, 1403, 980, 1416, 931, 2628};
     private static final int[] TWO_NODES_CLUSTER_NODE_1_KEYS_NON_EXISTENT = new int[]{-1, -2, -4, -5, -7, -10, -11, -12, -15, -16, -17, -21};
     private static final int[] TWO_NODES_CLUSTER_NODE_2_KEYS_NON_EXISTENT = new int[]{-3, -6, -8, -9, -13, -14, -18, -19, -20, -22, -26, -28};
-    private static final int[] TWO_NODES_CLUSTER_NODE_1_KEYS_DELETED = new int[]{27, 29, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40};
-    private static final int[] TWO_NODES_CLUSTER_NODE_2_KEYS_DELETED = new int[]{28, 30, 33, 42, 43, 44, 45, 46, 47, 49, 50, 51};
+    private static final int[] TWO_NODES_CLUSTER_NODE_1_KEYS_DELETED = new int[]{1294, 2036, 2878, 2713, 1740, 1553, 2271, 2914, 1773, 2380, 1627, 2829};
+    private static final int[] TWO_NODES_CLUSTER_NODE_2_KEYS_DELETED = new int[]{630, 155, 2715, 5441, 3398, 732, 922, 850, 963, 2621, 2784, 3763};
 
     private static final int CURRENT_TEST = TEST_ALL;
 
@@ -66,7 +66,6 @@ public class MainCluster extends Main {
                     ;
 
             Session session = cluster.connect(KEYSPACE);
-            PreparedStatement deletePreparedStatement = session.prepare(DELETE_QUERY_MANY_KEYS);
 
             switch (CURRENT_TEST) {
                 case TEST_ALL:
@@ -176,17 +175,17 @@ public class MainCluster extends Main {
 
         for (int run = 0; run < TEST_RUNS; run++) {
             for (Integer fraction : FRACTIONS) {
-                List<Integer> ids = new ArrayList<Integer>();
+                List<String> ids = new ArrayList<String>();
 
                 for (int j = 0; j < fraction; j++) {
-                    ids.add(node2Keys[j]);
+                    ids.add(Integer.toString(node2Keys[j]));
                 }
 
                 for (int j = fraction; j < node1Keys.length; j++) {
-                    ids.add(node1Keys[j]);
+                    ids.add(Integer.toString(node1Keys[j]));
                 }
 
-                String idsString = ids.toString().substring(1, ids.toString().length() - 1);
+                String idsString = ids.toString().substring(1, ids.toString().length() - 1).replace(", ", "', '");
                 String query = String.format(LOOKUP_QUERY_IN_CLAUSE, idsString);
                 Statement statement = new SimpleStatement(query);
 
