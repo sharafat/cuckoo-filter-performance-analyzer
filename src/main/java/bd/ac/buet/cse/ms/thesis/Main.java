@@ -9,12 +9,12 @@ import java.util.Map;
 
 public class Main {
 
-    private static final String SERVER_IP = "127.0.0.1";
-    private static final String KEYSPACE = "cuckoo_test";
+    protected static final String SERVER_IP = "127.0.0.1";
+    protected static final String KEYSPACE = "cuckoo_test";
     private static final String LOOKUP_QUERY = "SELECT * FROM air_traffic WHERE \"UniqueCarrier\" = ?";
     private static final String LOOKUP_QUERY_MANY_KEYS = "SELECT * FROM air_traffic WHERE \"Id\" = ?";
     private static final String DELETE_QUERY = "DELETE FROM air_traffic WHERE \"UniqueCarrier\" = ?";
-    private static final String DELETE_QUERY_MANY_KEYS = "DELETE FROM air_traffic WHERE \"Id\" = ?";
+    protected static final String DELETE_QUERY_MANY_KEYS = "DELETE FROM air_traffic WHERE \"Id\" = ?";
 
     private static final String[] CARRIERS_HAVING_DATA = new String[]{
             "AQ", "HA", "AS", "F9", "B6", "9E", "CO", "NW", "OH", "FL", "YV", "EV"
@@ -36,11 +36,11 @@ public class Main {
             "OH", "FL", "YV", "EV", "AA", "DL", "XE", "UA"
     };
 
-    private static final Integer[] FRACTIONS = new Integer[]{0, 3, 6, 9, 12};
+    protected static final Integer[] FRACTIONS = new Integer[]{0, 3, 6, 9, 12};
     private static final Integer[] FRACTIONS_FOR_DELETION = new Integer[]{0, 2, 4, 6, 8};
 
-    private static Map<Integer, Double> fractionDurationMap = new LinkedHashMap<Integer, Double>(FRACTIONS.length);
-    private static List<Double> durations = new ArrayList<Double>(CARRIERS_HAVING_DATA.length);
+    protected static Map<Integer, Double> fractionDurationMap = new LinkedHashMap<Integer, Double>(FRACTIONS.length);
+    protected static List<Double> durations = new ArrayList<Double>(CARRIERS_HAVING_DATA.length);
 
     private static final int TEST_LOOKUP_PERFORMANCE_POSITIVE_QUERY_FRACTION_WISE = 1;
     private static final int TEST_LOOKUP_PERFORMANCE_POSITIVE_QUERY_FRACTION_WISE_MANY_KEYS = 2;
