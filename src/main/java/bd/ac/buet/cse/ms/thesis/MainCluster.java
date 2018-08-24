@@ -27,6 +27,8 @@ public class MainCluster extends Main {
     private static final int TEST_LOOKUP_PERFORMANCE_FOR_FRACTION_OF_QUERIES_IN_OTHER_NODES_ALL_NEGATIVE = 5;
     // some keys requested from connected node, others from other node, all keys result in deleted
     private static final int TEST_LOOKUP_PERFORMANCE_FOR_FRACTION_OF_QUERIES_IN_OTHER_NODES_ALL_DELETED = 6;
+    // some keys requested from connected node, others from other node, all keys result in positive, huge amount of data retrieval
+    private static final int TEST_LOOKUP_PERFORMANCE_FOR_FRACTION_OF_QUERIES_IN_OTHER_NODES_ALL_POSITIVE_LARGE_RESULT = 7;
 
     private static final int TEST_ALL = -1;
     private static final int[] TEST_SUIT = new int[]{
@@ -83,6 +85,8 @@ public class MainCluster extends Main {
                 case TEST_ALL:
                     runAllTests(session);
                     break;
+                case TEST_LOOKUP_PERFORMANCE_FOR_FRACTION_OF_QUERIES_IN_OTHER_NODES_ALL_POSITIVE_LARGE_RESULT:
+                    runSpecialTest(session);
                 default:
                     runTest(CURRENT_TEST, session);
             }
@@ -342,6 +346,114 @@ public class MainCluster extends Main {
                 long start = System.currentTimeMillis();
 
                 executeQuery(fraction, segment, idsString, session, statement);
+
+                long end = System.currentTimeMillis();
+
+                double duration = (end - start);
+
+                List<Double> durations = fractionDurationMap.get(fraction);
+                if (durations == null) {
+                    durations = new ArrayList<Double>(TEST_RUNS);
+                }
+
+                durations.add(duration);
+
+                fractionDurationMap.put(fraction, durations);
+
+//                System.out.println(query);
+            }
+        }
+
+        for (Map.Entry<Integer, List<Double>> entry : fractionDurationMap.entrySet()) {
+            Double total = 0.0;
+            for (Double d : entry.getValue()) {
+                total += d;
+            }
+            System.out.println(total / TEST_RUNS);
+        }
+    }
+
+    private static void runSpecialTest(Session session) {
+        String[] KEYS_CARRIER = new String[] {
+                "WN","OO","MQ","US","UA","XE","DL","AA","EV","YV","FL","OH","NW","CO","9E","B6","F9","AS","HA","AQ"
+        };
+        String[] TWO_NODES_CLUSTER_NODE_1_KEYS_CARRIER = new String[]{"US", "EV", "YV", "OH", "CO", "9E", "F9", "HA"};
+        String[] TWO_NODES_CLUSTER_NODE_2_KEYS_CARRIER = new String[]{"XE", "DL", "AA", "FL", "NW", "B6", "AS", "AQ"};
+
+        String[] node1Keys = TWO_NODES_CLUSTER_NODE_1_KEYS_CARRIER;
+        String[] node2Keys = TWO_NODES_CLUSTER_NODE_2_KEYS_CARRIER;
+
+        int node1Index = 0;
+        int node2Index = 0;
+
+        boolean node1Done = false;
+        boolean node2Done = false;
+
+        String node1 = "192.168.88.11";
+        String node2 = "192.168.88.16";
+
+        Runtime runtime = Runtime.getRuntime();
+
+        for (String key : KEYS_CARRIER) {
+            String[] commands  = {"/Users/sharafat/Documents/cassandra/bin/nodetool", "getendpoints", "cuckoo_test", "air_traffic", key};
+            Process process = null;
+            try {
+                process = runtime.exec(commands);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            BufferedReader lineReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String node = lineReader.lines().findFirst().get();
+
+            if (node1.equals(node)) {
+                if (!node1Done) {
+                    node1Keys[node1Index++] = key;
+                }
+            } else if (node2.equals(node)) {
+                if (!node2Done) {
+                    node2Keys[node2Index++] = key;
+                }
+            } else {
+                throw new RuntimeException("Unknown IP: " + node);
+            }
+
+            if (node1Index == 8) {
+                node1Done = true;
+            }
+            if (node2Index == 8) {
+                node2Done = true;
+            }
+            if (node1Done && node2Done) {
+                break;
+            }
+        }
+
+        if (!node1Done || !node2Done) {
+            throw new RuntimeException("Keys exhausted before assigning 8 keys to each node");
+        }
+
+        Map<Integer, List<Double>> fractionDurationMap = new LinkedHashMap<Integer, List<Double>>();
+
+        for (int run = 0; run < TEST_RUNS; run++) {
+            for (Integer fraction : new Integer[]{0, 2, 4, 6, 8}) {
+                List<String> ids = new ArrayList<String>();
+
+                for (int j = 0; j < fraction; j++) {
+                    ids.add(node2Keys[j]);
+                }
+
+                for (int j = fraction; j < node1Keys.length; j++) {
+                    ids.add(node1Keys[j]);
+                }
+
+                String idsString = ids.toString().substring(1, ids.toString().length() - 1).replace(", ", "', '");
+                String query = String.format("SELECT * FROM air_traffic WHERE \"UniqueCarrier\" IN ('%s')", idsString);
+                Statement statement = new SimpleStatement(query);
+
+                long start = System.currentTimeMillis();
+
+                executeQuery(fraction, "SPECIAL_TEST", idsString, session, statement);
 
                 long end = System.currentTimeMillis();
 
