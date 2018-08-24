@@ -5,11 +5,11 @@ import com.datastax.driver.core.QueryTrace;
 import com.datastax.driver.core.policies.DCAwareRoundRobinPolicy;
 import com.datastax.driver.core.policies.WhiteListPolicy;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MainCluster extends Main {
 
@@ -44,13 +44,23 @@ public class MainCluster extends Main {
 
     private static final String LOOKUP_QUERY = "SELECT * FROM air_traffic WHERE \"FlightNum\" = '%s'";
     private static final String LOOKUP_QUERY_IN_CLAUSE = "SELECT * FROM air_traffic WHERE \"FlightNum\" IN ('%s')";
+    private static final String DELETE_QUERY = "DELETE FROM air_traffic WHERE \"FlightNum\" = '%s'";
 
-    private static final int[] TWO_NODES_CLUSTER_NODE_1_KEYS = new int[]{904, 761, 5472, 3724, 3715, 235, 2093, 3768, 2625, 835, 600, 1086};
-    private static final int[] TWO_NODES_CLUSTER_NODE_2_KEYS = new int[]{2378, 1179, 3481, 1474, 1197, 1016, 2907, 1403, 980, 1416, 931, 2628};
-    private static final int[] TWO_NODES_CLUSTER_NODE_1_KEYS_NON_EXISTENT = new int[]{-1, -2, -4, -5, -7, -10, -11, -12, -15, -16, -17, -21};
-    private static final int[] TWO_NODES_CLUSTER_NODE_2_KEYS_NON_EXISTENT = new int[]{-3, -6, -8, -9, -13, -14, -18, -19, -20, -22, -26, -28};
-    private static final int[] TWO_NODES_CLUSTER_NODE_1_KEYS_DELETED = new int[]{1294, 2036, 2878, 2713, 1740, 1553, 2271, 2914, 1773, 2380, 1627, 2829};
-    private static final int[] TWO_NODES_CLUSTER_NODE_2_KEYS_DELETED = new int[]{630, 155, 2715, 5441, 3398, 732, 922, 850, 963, 2621, 2784, 3763};
+    private static int[] KEYS = new int[]{
+            2378, 3481, 1474, 761, 3715, 1016, 2907, 1403, 2093, 931, 630, 155,
+            1179, 1197, 904, 5472, 3724, 235, 980, 1416, 3768, 2628, 2625, 600,
+            2715, 835, 1086, 1294, 3398, 732, 922, 850, 1553, 2271, 2784, 5441,
+            3763, 2036, 2878, 2713, 1740, 963, 2621, 2914, 238, 2028, 3157, 1627,
+            87, 1321, 2721, 1446, 1053, 1521, 3855, 1727, 161, 78, 461, 2816, 2735,
+            99, 439, 1201, 3860, 1269, 5459, 3746, 1668, 464, 3138, 1418, 1759, 1841
+    };
+
+    private static int[] TWO_NODES_CLUSTER_NODE_1_KEYS = new int[]{3481, 1474, 1016, 2907, 2093, 155, 3724, 235, 3768, 600, 835, 1294};
+    private static int[] TWO_NODES_CLUSTER_NODE_2_KEYS = new int[]{2378, 761, 3715, 1403, 931, 630, 1179, 1197, 904, 5472, 980, 1416};
+    private static int[] TWO_NODES_CLUSTER_NODE_1_KEYS_NON_EXISTENT = new int[]{-3, -4, -7, -8, -10, -15, -19, -23, -28, -29, -30, -31};
+    private static int[] TWO_NODES_CLUSTER_NODE_2_KEYS_NON_EXISTENT = new int[]{-1, -5, -6, -9, -11, -12, -13, -16, -17, -18, -20, -25};
+    private static int[] TWO_NODES_CLUSTER_NODE_1_KEYS_DELETED = new int[]{3398, 732, 1553, 2271, 5441, 2878, 963, 2621, 2914, 1627, 1321, 2721};
+    private static int[] TWO_NODES_CLUSTER_NODE_2_KEYS_DELETED = new int[]{2628, 2625, 2715, 1086, 922, 850, 2784, 3763, 2036, 2713, 1740, 238};
 
     private static final int CURRENT_TEST = TEST_ALL;
 
@@ -67,6 +77,8 @@ public class MainCluster extends Main {
 
             Session session = cluster.connect(KEYSPACE);
 
+            assignKeysToNodes(session);
+
             switch (CURRENT_TEST) {
                 case TEST_ALL:
                     runAllTests(session);
@@ -78,7 +90,145 @@ public class MainCluster extends Main {
             session.close();
             cluster.close();
         } finally {
-//            SoundUtils.tone(100, 250);
+            SoundUtils.tone(100, 250);
+        }
+    }
+
+    private static void assignKeysToNodes(Session session) {
+        int[] node1Array = TWO_NODES_CLUSTER_NODE_1_KEYS;
+        int[] node2Array = TWO_NODES_CLUSTER_NODE_2_KEYS;
+
+        int node1Index = 0;
+        int node2Index = 0;
+
+        boolean node1Done = false;
+        boolean node2Done = false;
+
+        String node1 = "192.168.88.11";
+        String node2 = "192.168.88.16";
+
+        Runtime runtime = Runtime.getRuntime();
+
+        for (int key : KEYS) {
+            String[] commands  = {"/Users/sharafat/Documents/cassandra/bin/nodetool", "getendpoints", "cuckoo_test", "air_traffic",
+                    Integer.toString(key)};
+            Process process = null;
+            try {
+                process = runtime.exec(commands);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            BufferedReader lineReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String node = lineReader.lines().findFirst().get();
+
+            if (node1.equals(node)) {
+                if (!node1Done) {
+                    node1Array[node1Index++] = key;
+                }
+            } else if (node2.equals(node)) {
+                if (!node2Done) {
+                    node2Array[node2Index++] = key;
+                }
+            } else {
+                throw new RuntimeException("Unknown IP: " + node);
+            }
+
+            if (node1Index == 12) {
+                if (node1Array == TWO_NODES_CLUSTER_NODE_1_KEYS) {
+                    node1Array = TWO_NODES_CLUSTER_NODE_1_KEYS_DELETED;
+                    node1Index = 0;
+                } else if (node1Array == TWO_NODES_CLUSTER_NODE_1_KEYS_DELETED) {
+                    node1Done = true;
+                }
+            }
+            if (node2Index == 12) {
+                if (node2Array == TWO_NODES_CLUSTER_NODE_2_KEYS) {
+                    node2Array = TWO_NODES_CLUSTER_NODE_2_KEYS_DELETED;
+                    node2Index = 0;
+                } else if (node2Array == TWO_NODES_CLUSTER_NODE_2_KEYS_DELETED) {
+                    node2Done = true;
+                }
+            }
+            if (node1Done && node2Done) {
+                break;
+            }
+        }
+
+        if (!node1Done || !node2Done) {
+            throw new RuntimeException("Keys exhausted before assigning 12 keys to each node");
+        }
+
+        node1Array = TWO_NODES_CLUSTER_NODE_1_KEYS_NON_EXISTENT;
+        node2Array = TWO_NODES_CLUSTER_NODE_2_KEYS_NON_EXISTENT;
+        node1Index = 0;
+        node2Index = 0;
+        node1Done = false;
+        node2Done = false;
+        for (int key = -1; key >= -100; key--) {
+            String[] commands  = {"/Users/sharafat/Documents/cassandra/bin/nodetool", "getendpoints", "cuckoo_test", "air_traffic",
+                    Integer.toString(key)};
+            Process process = null;
+            try {
+                process = runtime.exec(commands);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            BufferedReader lineReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String node = lineReader.lines().findFirst().get();
+
+            if (node1.equals(node)) {
+                if (!node1Done) {
+                    node1Array[node1Index++] = key;
+                }
+            } else if (node2.equals(node)) {
+                if (!node2Done) {
+                    node2Array[node2Index++] = key;
+                }
+            } else {
+                throw new RuntimeException("Unknown IP: " + node);
+            }
+
+            if (node1Index == 12) {
+                node1Done = true;
+            }
+            if (node2Index == 12) {
+                node2Done = true;
+            }
+            if (node1Done && node2Done) {
+                break;
+            }
+        }
+
+        if (!node1Done || !node2Done) {
+            throw new RuntimeException("Negative Keys exhausted before assigning 12 keys to each node");
+        }
+
+        printKeyNodeAssignments();
+
+        deleteRows(session);
+    }
+
+    private static void printKeyNodeAssignments() {
+        System.out.println("TWO_NODES_CLUSTER_NODE_1_KEYS: " + Arrays.toString(TWO_NODES_CLUSTER_NODE_1_KEYS));
+        System.out.println("TWO_NODES_CLUSTER_NODE_2_KEYS: " + Arrays.toString(TWO_NODES_CLUSTER_NODE_2_KEYS));
+        System.out.println("TWO_NODES_CLUSTER_NODE_1_KEYS_NON_EXISTENT: " + Arrays.toString(TWO_NODES_CLUSTER_NODE_1_KEYS_NON_EXISTENT));
+        System.out.println("TWO_NODES_CLUSTER_NODE_2_KEYS_NON_EXISTENT: " + Arrays.toString(TWO_NODES_CLUSTER_NODE_2_KEYS_NON_EXISTENT));
+        System.out.println("TWO_NODES_CLUSTER_NODE_1_KEYS_DELETED: " + Arrays.toString(TWO_NODES_CLUSTER_NODE_1_KEYS_DELETED));
+        System.out.println("TWO_NODES_CLUSTER_NODE_2_KEYS_DELETED: " + Arrays.toString(TWO_NODES_CLUSTER_NODE_2_KEYS_DELETED));
+    }
+
+    private static void deleteRows(Session session) {
+        for (int[] arr : new int[][]{TWO_NODES_CLUSTER_NODE_1_KEYS_DELETED, TWO_NODES_CLUSTER_NODE_2_KEYS_DELETED}) {
+            for (int key : arr) {
+                SimpleStatement statement = new SimpleStatement(String.format(DELETE_QUERY, key));
+                executeQuery(-1, "DELETE", Integer.toString(key), session, statement);
+            }
+            for (int key : arr) {
+                SimpleStatement statement = new SimpleStatement(String.format(LOOKUP_QUERY, key));
+                executeQuery(-1, "LOOKUP_AFTER_DELETE", Integer.toString(key), session, statement);
+            }
         }
     }
 
