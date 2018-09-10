@@ -67,12 +67,14 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            Cluster.Builder builder = Cluster.builder()
-                    .addContactPoints(SERVER_IP);
-            builder.getConfiguration().getSocketOptions()
-                    .setConnectTimeoutMillis(9999999)
-                    .setReadTimeoutMillis(9999999);
-            Cluster cluster = builder.build();
+            Cluster cluster = Cluster.builder()
+                    .addContactPoints(SERVER_IP)
+                    .withSocketOptions(
+                            new SocketOptions()
+                                    .setConnectTimeoutMillis(9999999)
+                                    .setReadTimeoutMillis(9999999)
+                    )
+                    .build();
 
             Session session = cluster.connect(KEYSPACE);
             PreparedStatement lookupPreparedStatement = session.prepare(CURRENT_TEST == TEST_LOOKUP_PERFORMANCE_POSITIVE_QUERY_FRACTION_WISE_MANY_KEYS ? LOOKUP_QUERY_MANY_KEYS : LOOKUP_QUERY).enableTracing();
@@ -260,7 +262,7 @@ public class Main {
     private static long executeQuery(int fraction, String segment, String key, Session session, BoundStatement statement) {
         System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key);
 
-        ResultSet resultSet = session.execute(statement);
+        ResultSet resultSet = session.execute(statement.setReadTimeoutMillis(9999999));
         long rows = 0;
         while (resultSet.iterator().hasNext()) {
             resultSet.iterator().next();
