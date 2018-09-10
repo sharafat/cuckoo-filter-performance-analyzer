@@ -14,7 +14,7 @@ import java.util.*;
 
 public class Main {
 
-    protected static final String SERVER_IP = "18.188.136.98";
+    protected static final String SERVER_IP = "13.58.35.128";
     protected static final String KEYSPACE = "cuckoo_test";
     private static final String LOOKUP_QUERY = "SELECT * FROM amazon_reviews WHERE product_category = ?";
     private static final String LOOKUP_QUERY_MANY_KEYS = "SELECT * FROM air_traffic WHERE \"Id\" = ?";
@@ -70,50 +70,52 @@ public class Main {
             }};
 
     private static final String[] INPUT_FILE_NAMES = new String[] {
-//            "amazon_reviews_us_Apparel_v1_00.tsv",
-//            "amazon_reviews_us_Automotive_v1_00.tsv",
-//            "amazon_reviews_us_Baby_v1_00.tsv",
-//            "amazon_reviews_us_Beauty_v1_00.tsv",
-//            "amazon_reviews_us_Books_v1_00.tsv",
-//            "amazon_reviews_us_Camera_v1_00.tsv",
-//            "amazon_reviews_us_Digital_Ebook_Purchase_v1_00.tsv",
-//            "amazon_reviews_us_Digital_Music_Purchase_v1_00.tsv",
-//            "amazon_reviews_us_Digital_Software_v1_00.tsv",
-//            "amazon_reviews_us_Digital_Video_Download_v1_00.tsv",
-//            "amazon_reviews_us_Digital_Video_Games_v1_00.tsv",
-//            "amazon_reviews_us_Electronics_v1_00.tsv",
-//            "amazon_reviews_us_Furniture_v1_00.tsv",
-            "amazon_reviews_us_Gift_Card_v1_00.tsv"
-//            "amazon_reviews_us_Grocery_v1_00.tsv",
-//            "amazon_reviews_us_Health_Personal_Care_v1_00.tsv",
-//            "amazon_reviews_us_Home_Entertainment_v1_00.tsv",
-//            "amazon_reviews_us_Home_Improvement_v1_00.tsv",
-//            "amazon_reviews_us_Home_v1_00.tsv",
-//            "amazon_reviews_us_Jewelry_v1_00.tsv",
-//            "amazon_reviews_us_Kitchen_v1_00.tsv",
-//            "amazon_reviews_us_Lawn_and_Garden_v1_00.tsv",
-//            "amazon_reviews_us_Luggage_v1_00.tsv",
-//            "amazon_reviews_us_Major_Appliances_v1_00.tsv",
-//            "amazon_reviews_us_Mobile_Apps_v1_00.tsv",
-//            "amazon_reviews_us_Mobile_Electronics_v1_00.tsv",
-//            "amazon_reviews_us_Music_v1_00.tsv",
-//            "amazon_reviews_us_Musical_Instruments_v1_00.tsv",
-//            "amazon_reviews_us_Office_Products_v1_00.tsv",
-//            "amazon_reviews_us_Outdoors_v1_00.tsv",
-//            "amazon_reviews_us_PC_v1_00.tsv",
-//            "amazon_reviews_us_Personal_Care_Appliances_v1_00.tsv",
-//            "amazon_reviews_us_Pet_Products_v1_00.tsv",
-//            "amazon_reviews_us_Shoes_v1_00.tsv",
-//            "amazon_reviews_us_Software_v1_00.tsv",
-//            "amazon_reviews_us_Sports_v1_00.tsv",
-//            "amazon_reviews_us_Tools_v1_00.tsv",
-//            "amazon_reviews_us_Toys_v1_00.tsv",
-//            "amazon_reviews_us_Video_DVD_v1_00.tsv",
-//            "amazon_reviews_us_Video_Games_v1_00.tsv",
-//            "amazon_reviews_us_Video_v1_00.tsv",
-//            "amazon_reviews_us_Watches_v1_00.tsv",
-//            "amazon_reviews_us_Wireless_v1_00.tsv"
+            "amazon_reviews_us_Apparel_v1_00.tsv",
+            "amazon_reviews_us_Automotive_v1_00.tsv",
+            "amazon_reviews_us_Baby_v1_00.tsv",
+            "amazon_reviews_us_Beauty_v1_00.tsv",
+            "amazon_reviews_us_Books_v1_00.tsv",
+            "amazon_reviews_us_Camera_v1_00.tsv",
+            "amazon_reviews_us_Digital_Ebook_Purchase_v1_00.tsv",
+            "amazon_reviews_us_Digital_Music_Purchase_v1_00.tsv",
+            "amazon_reviews_us_Digital_Software_v1_00.tsv",
+            "amazon_reviews_us_Digital_Video_Download_v1_00.tsv",
+            "amazon_reviews_us_Digital_Video_Games_v1_00.tsv",
+            "amazon_reviews_us_Electronics_v1_00.tsv",
+            "amazon_reviews_us_Furniture_v1_00.tsv",
+            "amazon_reviews_us_Gift_Card_v1_00.tsv",
+            "amazon_reviews_us_Grocery_v1_00.tsv",
+            "amazon_reviews_us_Health_Personal_Care_v1_00.tsv",
+            "amazon_reviews_us_Home_Entertainment_v1_00.tsv",
+            "amazon_reviews_us_Home_Improvement_v1_00.tsv",
+            "amazon_reviews_us_Home_v1_00.tsv",
+            "amazon_reviews_us_Jewelry_v1_00.tsv",
+            "amazon_reviews_us_Kitchen_v1_00.tsv",
+            "amazon_reviews_us_Lawn_and_Garden_v1_00.tsv",
+            "amazon_reviews_us_Luggage_v1_00.tsv",
+            "amazon_reviews_us_Major_Appliances_v1_00.tsv",
+            "amazon_reviews_us_Mobile_Apps_v1_00.tsv",
+            "amazon_reviews_us_Mobile_Electronics_v1_00.tsv",
+            "amazon_reviews_us_Music_v1_00.tsv",
+            "amazon_reviews_us_Musical_Instruments_v1_00.tsv",
+            "amazon_reviews_us_Office_Products_v1_00.tsv",
+            "amazon_reviews_us_Outdoors_v1_00.tsv",
+            "amazon_reviews_us_PC_v1_00.tsv",
+            "amazon_reviews_us_Personal_Care_Appliances_v1_00.tsv",
+            "amazon_reviews_us_Pet_Products_v1_00.tsv",
+            "amazon_reviews_us_Shoes_v1_00.tsv",
+            "amazon_reviews_us_Software_v1_00.tsv",
+            "amazon_reviews_us_Sports_v1_00.tsv",
+            "amazon_reviews_us_Tools_v1_00.tsv",
+            "amazon_reviews_us_Toys_v1_00.tsv",
+            "amazon_reviews_us_Video_DVD_v1_00.tsv",
+            "amazon_reviews_us_Video_Games_v1_00.tsv",
+            "amazon_reviews_us_Video_v1_00.tsv",
+            "amazon_reviews_us_Watches_v1_00.tsv",
+            "amazon_reviews_us_Wireless_v1_00.tsv"
     };
+
+    private static final String INPUT_FILE_PATH = "/home/ubuntu/review-data/";
 
     protected static final Integer[] FRACTIONS = new Integer[]{0, 2, 4, 6, 8};
     private static final Integer[] FRACTIONS_FOR_DELETION = new Integer[]{0, 2, 4, 6, 8};
@@ -378,7 +380,7 @@ public class Main {
             long innerStart = System.currentTimeMillis();
 
             int idx = -1;
-            for (String[] row : parser.iterate(new FileReader("/Users/sharafat/review-data/" + inputFileName))){
+            for (String[] row : parser.iterate(new FileReader(INPUT_FILE_PATH + inputFileName))){
                 idx++;
                 if (idx == 0) {
                     // header row
