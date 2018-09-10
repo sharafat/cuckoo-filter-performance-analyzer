@@ -45,11 +45,16 @@ public class Tsv2Csv {
                 }
 
                 writer.writeRow(values[0], values[1], values[2], values[3], values[4],
-                        values[5], values[6],
+                        values[5] != null ? values[5].replace("\"", "").replace("\\", "") : null,
+                        values[6],
                         values[7] != null ? Integer.parseInt(values[7]) : null,
-                        values[7] != null ? Integer.parseInt(values[8]) : null,
-                        values[7] != null ? Integer.parseInt(values[9]) : null,
-                        values[10], values[11], values[12], values[13], values[14]);
+                        values[8] != null ? Integer.parseInt(values[8]) : null,
+                        values[9] != null ? Integer.parseInt(values[9]) : null,
+                        values[10],
+                        values[11],
+                        values[12] != null ? values[12].replace("\"", "").replace("\\", "") : null,
+                        values[13] != null ? values[13].replace("\"", "").replace("\\", "") : null,
+                        values[14]);
 
                 fileRows++;
             }
