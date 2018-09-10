@@ -21,14 +21,14 @@ public class Main {
     protected static final String DELETE_QUERY_MANY_KEYS = "DELETE FROM air_traffic WHERE \"Id\" = ?";
 
     private static final String[] CARRIERS_HAVING_DATA = new String[]{
-            "Grocery",
-            "Digital_Software",
-            "Outdoors",
-            "Digital_Video_Games",
-            "Camera",
-            "Furniture",
+            "Digital_Video_Download",
             "Watches",
-            "Digital_Music_Purchase"
+            "Automotive",
+            "Digital_Music_Purchase",
+            "Electronics",
+            "Camera",
+            "Grocery",
+            "Outdoors"
     };
 
     private static final String[] CARRIERS_NOT_HAVING_DATA = new String[]{
@@ -44,7 +44,14 @@ public class Main {
     };
 
     private static final String[] CARRIERS_HAVING_DATA_DELETED = new String[]{
-            "OH", "FL", "YV", "EV", "AA", "DL", "XE", "UA"
+            "Kitchen",
+            "Digital_Software",
+            "Toys",
+            "Mobile_Electronics",
+            "Sports",
+            "Digital_Video_Games",
+            "Music",
+            "Software"
     };
 
     protected static final Integer[] FRACTIONS = new Integer[]{0, 2, 4, 6, 8};
