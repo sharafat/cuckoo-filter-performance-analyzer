@@ -219,15 +219,15 @@ public class Main {
 
     private static void runLookupAfterDeleteTestForVaryingDeletedDataPercentage(Session session, PreparedStatement lookupPreparedStatement,
                                                  PreparedStatement deletePreparedStatement) {
-        for (String key : CARRIERS_HAVING_DATA_DELETED) {
-            BoundStatement deleteBoundStatement = deletePreparedStatement.bind(key);
-            executeQuery(-1, "DELETING_DATA", key, session, deleteBoundStatement);
-        }
-
-        for (String key : CARRIERS_HAVING_DATA_DELETED) {
-            BoundStatement statement = lookupPreparedStatement.bind(key);
-            executeQuery(-1, "READING_BACK_DELETED_DATA", key, session, statement);
-        }
+//        for (String key : CARRIERS_HAVING_DATA_DELETED) {
+//            BoundStatement deleteBoundStatement = deletePreparedStatement.bind(key);
+//            executeQuery(-1, "DELETING_DATA", key, session, deleteBoundStatement);
+//        }
+//
+//        for (String key : CARRIERS_HAVING_DATA_DELETED) {
+//            BoundStatement statement = lookupPreparedStatement.bind(key);
+//            executeQuery(-1, "READING_BACK_DELETED_DATA", key, session, statement);
+//        }
 
         for (Integer fraction : FRACTIONS_FOR_DELETION) {
             long start = System.currentTimeMillis();
