@@ -2,6 +2,10 @@ package bd.ac.buet.cse.ms.thesis;
 
 import com.datastax.driver.core.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,19 +13,26 @@ import java.util.Map;
 
 public class Main {
 
-    protected static final String SERVER_IP = "127.0.0.1";
+    protected static final String SERVER_IP = "18.188.136.98";
     protected static final String KEYSPACE = "cuckoo_test";
-    private static final String LOOKUP_QUERY = "SELECT * FROM air_traffic WHERE \"UniqueCarrier\" = ?";
+    private static final String LOOKUP_QUERY = "SELECT * FROM amazon_reviews WHERE product_category = ?";
     private static final String LOOKUP_QUERY_MANY_KEYS = "SELECT * FROM air_traffic WHERE \"Id\" = ?";
-    private static final String DELETE_QUERY = "DELETE FROM air_traffic WHERE \"UniqueCarrier\" = ?";
+    private static final String DELETE_QUERY = "DELETE FROM amazon_reviews WHERE product_category = ?";
     protected static final String DELETE_QUERY_MANY_KEYS = "DELETE FROM air_traffic WHERE \"Id\" = ?";
 
     private static final String[] CARRIERS_HAVING_DATA = new String[]{
-            "AQ", "HA", "AS", "F9", "B6", "9E", "CO", "NW", "OH", "FL", "YV", "EV"
+            "Grocery",
+            "Digital_Software",
+            "Outdoors",
+            "Digital_Video_Games",
+            "Camera",
+            "Furniture",
+            "Watches",
+            "Digital_Music_Purchase"
     };
 
     private static final String[] CARRIERS_NOT_HAVING_DATA = new String[]{
-            "BB", "CC", "DD", "EE", "FF", "GG", "AB", "AC", "AD", "AE", "AF", "AG"
+            "BB", "CC", "DD", "EE", "FF", "GG", "AB", "AC"
     };
 
     private static final int[] IDS_HAVING_DATA = new int[]{
@@ -36,7 +47,7 @@ public class Main {
             "OH", "FL", "YV", "EV", "AA", "DL", "XE", "UA"
     };
 
-    protected static final Integer[] FRACTIONS = new Integer[]{0, 3, 6, 9, 12};
+    protected static final Integer[] FRACTIONS = new Integer[]{0, 2, 4, 6, 8};
     private static final Integer[] FRACTIONS_FOR_DELETION = new Integer[]{0, 2, 4, 6, 8};
 
     protected static Map<Integer, Double> fractionDurationMap = new LinkedHashMap<Integer, Double>(FRACTIONS.length);
@@ -48,7 +59,7 @@ public class Main {
     private static final int TEST_LOOKUP_AFTER_DELETE = 4;
     private static final int TEST_LOOKUP_AFTER_DELETE_DELETED_QUERY_FRACTION_WISE = 5;
 
-    private static final int CURRENT_TEST = TEST_LOOKUP_AFTER_DELETE;
+    private static final int CURRENT_TEST = TEST_LOOKUP_PERFORMANCE_POSITIVE_QUERY_FRACTION_WISE;
 
     public static void main(String[] args) {
         try {
@@ -84,7 +95,20 @@ public class Main {
             session.close();
             cluster.close();
         } finally {
-            SoundUtils.tone(100, 250);
+//            SoundUtils.tone(100, 250);
+        }
+    }
+
+    private static void showNoOfRows(Session session, PreparedStatement preparedStatement) {
+        for (String key : CARRIERS_HAVING_DATA) {
+            BoundStatement statement = preparedStatement.bind(key);
+            long rows = executeQuery(-1, "HAS_DATA", key, session, statement);
+            String log = "Key " + key + " has " + rows + " rows.\n";
+            System.out.print(log);
+            try {
+                Files.write(Paths.get("~/myfile.txt"), log.getBytes(), StandardOpenOption.APPEND);
+            }catch (IOException ignored) {
+            }
         }
     }
 
@@ -223,9 +247,9 @@ public class Main {
         }
     }
 
-    private static int executeQuery(int fraction, String segment, String key, Session session, BoundStatement statement) {
+    private static long executeQuery(int fraction, String segment, String key, Session session, BoundStatement statement) {
         ResultSet resultSet = session.execute(statement);
-        int rows = 0;
+        long rows = 0;
         while (resultSet.iterator().hasNext()) {
             resultSet.iterator().next();
             rows++;
