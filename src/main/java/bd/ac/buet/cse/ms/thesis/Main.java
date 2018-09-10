@@ -69,7 +69,7 @@ public class Main {
                                        "Outdoors", "Camera", "Jewelry", "Baby", "Tools", "Digital_Music_Purchase", "Watches", "Furniture"});
             }};
 
-    private static final String[] INPUT_FILE_NAMES = new String[] {
+    public static final String[] INPUT_FILE_NAMES = new String[] {
             "amazon_reviews_us_Apparel_v1_00.tsv",
             "amazon_reviews_us_Automotive_v1_00.tsv",
             "amazon_reviews_us_Baby_v1_00.tsv",
@@ -115,7 +115,7 @@ public class Main {
             "amazon_reviews_us_Wireless_v1_00.tsv"
     };
 
-    private static final String INPUT_FILE_PATH = "/home/ubuntu/review-data/";
+    public static final String INPUT_FILE_PATH = "/home/ubuntu/review-data/";
 
     protected static final Integer[] FRACTIONS = new Integer[]{0, 2, 4, 6, 8};
     private static final Integer[] FRACTIONS_FOR_DELETION = new Integer[]{0, 2, 4, 6, 8};
