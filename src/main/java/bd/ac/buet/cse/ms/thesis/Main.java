@@ -51,6 +51,19 @@ public class Main {
             "Software"
     };
 
+    private static final Map<Integer /* Data size in GB */, String[] /* Key list */> CARRIERS_DATA_DELETED =
+            new HashMap<Integer, String[]>() {{
+                put( 1, new String[] { "Grocery" });
+                put(10, new String[] { "Books", "Home" });
+                put(20, new String[] { "Books", "Digital_Ebook_Purchase", "Wireless", "Apparel" });
+                put(30, new String[] { "Books", "Digital_Ebook_Purchase", "Wireless", "Apparel", "PC", "Home", "Beauty", "Mobile_Apps", "Grocery" });
+                put(40, new String[] { "Books", "Digital_Ebook_Purchase", "Wireless", "Apparel", "PC", "Home", "Beauty", "Mobile_Apps", "Grocery",
+                                       "Shoes", "Music", "Sports", "Toys", "Kitchen"});
+                put(50, new String[] { "Books", "Digital_Ebook_Purchase", "Wireless", "Apparel", "PC", "Home", "Beauty", "Mobile_Apps", "Grocery",
+                                       "Shoes", "Music", "Sports", "Toys", "Kitchen", "Digital_Video_Download", "Automotive", "Electronics",
+                                       "Outdoors", "Camera", "Jewelry", "Baby", "Tools", "Digital_Music_Purchase", "Watches", "Furniture"});
+            }};
+
     protected static final Integer[] FRACTIONS = new Integer[]{0, 2, 4, 6, 8};
     private static final Integer[] FRACTIONS_FOR_DELETION = new Integer[]{0, 2, 4, 6, 8};
 
@@ -62,8 +75,9 @@ public class Main {
     private static final int TEST_LOOKUP_PERFORMANCE_FILTER_LOAD_WISE = 3;
     private static final int TEST_LOOKUP_AFTER_DELETE = 4;
     private static final int TEST_LOOKUP_AFTER_DELETE_DELETED_QUERY_FRACTION_WISE = 5;
+    private static final int TEST_LOOKUP_AFTER_DELETE_DATA_SIZE_WISE = 6;
 
-    private static final int CURRENT_TEST = TEST_LOOKUP_AFTER_DELETE_DELETED_QUERY_FRACTION_WISE;
+    private static final int CURRENT_TEST = TEST_LOOKUP_AFTER_DELETE_DATA_SIZE_WISE;
 
     public static void main(String[] args) {
         try {
@@ -96,6 +110,8 @@ public class Main {
                     break;
                 case TEST_LOOKUP_AFTER_DELETE_DELETED_QUERY_FRACTION_WISE:
                     runLookupAfterDeleteTestForVaryingDeletedDataPercentage(session, lookupPreparedStatement, deletePreparedStatement);
+                case TEST_LOOKUP_AFTER_DELETE_DATA_SIZE_WISE:
+                    runLookupAfterDeleteTestForVaryingDataSize(session, lookupPreparedStatement, deletePreparedStatement);
                     break;
                 default:
                     throw new RuntimeException("Unknown value for CURRENT_TEST: " + CURRENT_TEST);
@@ -256,6 +272,38 @@ public class Main {
 
         for (Map.Entry<Integer, Double> entry : fractionDurationMap.entrySet()) {
             System.out.println(entry.getValue());
+        }
+    }
+
+    private static void runLookupAfterDeleteTestForVaryingDataSize(Session session, PreparedStatement lookupPreparedStatement,
+                                                                                PreparedStatement deletePreparedStatement) {
+//        for (String key : CARRIERS_DATA_DELETED.get(50)) {
+//            BoundStatement deleteBoundStatement = deletePreparedStatement.bind(key);
+//            executeQuery(-1, "DELETING_DATA", key, session, deleteBoundStatement);
+//        }
+//
+//        for (String key : CARRIERS_DATA_DELETED.get(50)) {
+//            BoundStatement statement = lookupPreparedStatement.bind(key);
+//            executeQuery(-1, "READING_BACK_DELETED_DATA", key, session, statement);
+//        }
+
+        for (Map.Entry<Integer, String[]> entry : CARRIERS_DATA_DELETED.entrySet()) {
+            long start = System.currentTimeMillis();
+
+            for (String key : entry.getValue()) {
+                BoundStatement statement = lookupPreparedStatement.bind(key);
+                executeQuery(-1, "_DELETED_DATA", key, session, statement);
+            }
+
+            long end = System.currentTimeMillis();
+
+            double duration = (end - start) / 1000.0;
+
+            fractionDurationMap.put(entry.getKey(), duration);
+        }
+
+        for (Map.Entry<Integer, Double> entry : fractionDurationMap.entrySet()) {
+            System.out.println(entry.getKey() + " GB. Duration (seconds): " + entry.getValue());
         }
     }
 
