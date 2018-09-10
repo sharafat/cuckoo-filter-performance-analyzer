@@ -66,7 +66,7 @@ public class Main {
     private static final int TEST_LOOKUP_AFTER_DELETE = 4;
     private static final int TEST_LOOKUP_AFTER_DELETE_DELETED_QUERY_FRACTION_WISE = 5;
 
-    private static final int CURRENT_TEST = TEST_LOOKUP_PERFORMANCE_POSITIVE_QUERY_FRACTION_WISE;
+    private static final int CURRENT_TEST = TEST_LOOKUP_AFTER_DELETE_DELETED_QUERY_FRACTION_WISE;
 
     public static void main(String[] args) {
         try {
