@@ -23,6 +23,7 @@
                     <archive>
                         <manifest>
                             <mainClass>bd.ac.buet.cse.ms.thesis.Main</mainClass>
+                            <mainClass>Csv2Tsv</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
