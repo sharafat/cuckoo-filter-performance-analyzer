@@ -70,9 +70,12 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            Cluster cluster = Cluster.builder()
-                    .addContactPoints(SERVER_IP)
-                    .build();
+            Cluster.Builder builder = Cluster.builder()
+                    .addContactPoints(SERVER_IP);
+            builder.getConfiguration().getSocketOptions()
+                    .setConnectTimeoutMillis(120000)
+                    .setReadTimeoutMillis(50000000);
+            Cluster cluster = builder.build();
 
             Session session = cluster.connect(KEYSPACE);
             PreparedStatement lookupPreparedStatement = session.prepare(CURRENT_TEST == TEST_LOOKUP_PERFORMANCE_POSITIVE_QUERY_FRACTION_WISE_MANY_KEYS ? LOOKUP_QUERY_MANY_KEYS : LOOKUP_QUERY).enableTracing();
