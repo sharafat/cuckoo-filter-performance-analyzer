@@ -41,13 +41,13 @@ public class Main {
     };
 
     private static final String[] CARRIERS_HAVING_DATA_DELETED = new String[]{
-//            "Kitchen",
+            "Kitchen",
             "Digital_Software",
-//            "Toys",
+            "Toys",
             "Mobile_Electronics",
-//            "Sports",
+            "Sports",
             "Digital_Video_Games",
-//            "Music",
+            "Music",
             "Software"
     };
 
