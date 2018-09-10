@@ -41,13 +41,13 @@ public class Main {
     };
 
     private static final String[] CARRIERS_HAVING_DATA_DELETED = new String[]{
-            "Kitchen",
+//            "Kitchen",
             "Digital_Software",
-            "Toys",
+//            "Toys",
             "Mobile_Electronics",
-            "Sports",
+//            "Sports",
             "Digital_Video_Games",
-            "Music",
+//            "Music",
             "Software"
     };
 
@@ -70,8 +70,8 @@ public class Main {
             Cluster.Builder builder = Cluster.builder()
                     .addContactPoints(SERVER_IP);
             builder.getConfiguration().getSocketOptions()
-                    .setConnectTimeoutMillis(120000)
-                    .setReadTimeoutMillis(50000000);
+                    .setConnectTimeoutMillis(9999999)
+                    .setReadTimeoutMillis(9999999);
             Cluster cluster = builder.build();
 
             Session session = cluster.connect(KEYSPACE);
@@ -101,6 +101,9 @@ public class Main {
 
             session.close();
             cluster.close();
+        } catch (Exception e) {
+            System.out.println(new Date().toString() + ": " + e.getMessage());
+            e.printStackTrace();
         } finally {
 //            SoundUtils.tone(100, 250);
         }
@@ -264,7 +267,7 @@ public class Main {
             rows++;
         }
 
-        System.out.println(new Date().toString() + ":Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key + ", Rows: " + rows);
+        System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key + ", Rows: " + rows);
 
         return rows;
     }
