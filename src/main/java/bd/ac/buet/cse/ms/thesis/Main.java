@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
@@ -258,6 +255,8 @@ public class Main {
     }
 
     private static long executeQuery(int fraction, String segment, String key, Session session, BoundStatement statement) {
+        System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key);
+
         ResultSet resultSet = session.execute(statement);
         long rows = 0;
         while (resultSet.iterator().hasNext()) {
@@ -265,7 +264,7 @@ public class Main {
             rows++;
         }
 
-        System.out.println("Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key + ", Rows: " + rows);
+        System.out.println(new Date().toString() + ":Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key + ", Rows: " + rows);
 
         return rows;
     }
