@@ -1,7 +1,11 @@
 package bd.ac.buet.cse.ms.thesis;
 
 import com.datastax.driver.core.*;
+import com.univocity.parsers.tsv.TsvParser;
+import com.univocity.parsers.tsv.TsvParserSettings;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,6 +20,7 @@ public class Main {
     private static final String LOOKUP_QUERY_MANY_KEYS = "SELECT * FROM air_traffic WHERE \"Id\" = ?";
     private static final String DELETE_QUERY = "DELETE FROM amazon_reviews WHERE product_category = ?";
     protected static final String DELETE_QUERY_MANY_KEYS = "DELETE FROM air_traffic WHERE \"Id\" = ?";
+    private static final String INSERT_QUERY = "INSERT INTO amazon_reviews (marketplace, customer_id, review_id, product_id, product_parent, product_title, product_category, star_rating, helpful_votes, total_votes, vine, verified_purchase, review_headline, review_body, review_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String[] CARRIERS_HAVING_DATA = new String[]{
             "Digital_Video_Download",
@@ -64,6 +69,52 @@ public class Main {
                                        "Outdoors", "Camera", "Jewelry", "Baby", "Tools", "Digital_Music_Purchase", "Watches", "Furniture"});
             }};
 
+    private static final String[] INPUT_FILE_NAMES = new String[] {
+//            "amazon_reviews_us_Apparel_v1_00.tsv",
+//            "amazon_reviews_us_Automotive_v1_00.tsv",
+//            "amazon_reviews_us_Baby_v1_00.tsv",
+//            "amazon_reviews_us_Beauty_v1_00.tsv",
+//            "amazon_reviews_us_Books_v1_00.tsv",
+//            "amazon_reviews_us_Camera_v1_00.tsv",
+//            "amazon_reviews_us_Digital_Ebook_Purchase_v1_00.tsv",
+//            "amazon_reviews_us_Digital_Music_Purchase_v1_00.tsv",
+//            "amazon_reviews_us_Digital_Software_v1_00.tsv",
+//            "amazon_reviews_us_Digital_Video_Download_v1_00.tsv",
+//            "amazon_reviews_us_Digital_Video_Games_v1_00.tsv",
+//            "amazon_reviews_us_Electronics_v1_00.tsv",
+//            "amazon_reviews_us_Furniture_v1_00.tsv",
+            "amazon_reviews_us_Gift_Card_v1_00.tsv"
+//            "amazon_reviews_us_Grocery_v1_00.tsv",
+//            "amazon_reviews_us_Health_Personal_Care_v1_00.tsv",
+//            "amazon_reviews_us_Home_Entertainment_v1_00.tsv",
+//            "amazon_reviews_us_Home_Improvement_v1_00.tsv",
+//            "amazon_reviews_us_Home_v1_00.tsv",
+//            "amazon_reviews_us_Jewelry_v1_00.tsv",
+//            "amazon_reviews_us_Kitchen_v1_00.tsv",
+//            "amazon_reviews_us_Lawn_and_Garden_v1_00.tsv",
+//            "amazon_reviews_us_Luggage_v1_00.tsv",
+//            "amazon_reviews_us_Major_Appliances_v1_00.tsv",
+//            "amazon_reviews_us_Mobile_Apps_v1_00.tsv",
+//            "amazon_reviews_us_Mobile_Electronics_v1_00.tsv",
+//            "amazon_reviews_us_Music_v1_00.tsv",
+//            "amazon_reviews_us_Musical_Instruments_v1_00.tsv",
+//            "amazon_reviews_us_Office_Products_v1_00.tsv",
+//            "amazon_reviews_us_Outdoors_v1_00.tsv",
+//            "amazon_reviews_us_PC_v1_00.tsv",
+//            "amazon_reviews_us_Personal_Care_Appliances_v1_00.tsv",
+//            "amazon_reviews_us_Pet_Products_v1_00.tsv",
+//            "amazon_reviews_us_Shoes_v1_00.tsv",
+//            "amazon_reviews_us_Software_v1_00.tsv",
+//            "amazon_reviews_us_Sports_v1_00.tsv",
+//            "amazon_reviews_us_Tools_v1_00.tsv",
+//            "amazon_reviews_us_Toys_v1_00.tsv",
+//            "amazon_reviews_us_Video_DVD_v1_00.tsv",
+//            "amazon_reviews_us_Video_Games_v1_00.tsv",
+//            "amazon_reviews_us_Video_v1_00.tsv",
+//            "amazon_reviews_us_Watches_v1_00.tsv",
+//            "amazon_reviews_us_Wireless_v1_00.tsv"
+    };
+
     protected static final Integer[] FRACTIONS = new Integer[]{0, 2, 4, 6, 8};
     private static final Integer[] FRACTIONS_FOR_DELETION = new Integer[]{0, 2, 4, 6, 8};
 
@@ -76,8 +127,9 @@ public class Main {
     private static final int TEST_LOOKUP_AFTER_DELETE = 4;
     private static final int TEST_LOOKUP_AFTER_DELETE_DELETED_QUERY_FRACTION_WISE = 5;
     private static final int TEST_LOOKUP_AFTER_DELETE_DATA_SIZE_WISE = 6;
+    private static final int TEST_INSERTION = 7;
 
-    private static final int CURRENT_TEST = TEST_LOOKUP_AFTER_DELETE_DATA_SIZE_WISE;
+    private static final int CURRENT_TEST = TEST_INSERTION;
 
     public static void main(String[] args) {
         try {
@@ -94,6 +146,7 @@ public class Main {
             PreparedStatement lookupPreparedStatement = session.prepare(CURRENT_TEST == TEST_LOOKUP_PERFORMANCE_POSITIVE_QUERY_FRACTION_WISE_MANY_KEYS ? LOOKUP_QUERY_MANY_KEYS : LOOKUP_QUERY).enableTracing();
             PreparedStatement lookupManyKeysPreparedStatement = session.prepare(CURRENT_TEST == TEST_LOOKUP_PERFORMANCE_POSITIVE_QUERY_FRACTION_WISE_MANY_KEYS ? LOOKUP_QUERY_MANY_KEYS : LOOKUP_QUERY).enableTracing();
             PreparedStatement deletePreparedStatement = session.prepare(CURRENT_TEST == TEST_LOOKUP_PERFORMANCE_POSITIVE_QUERY_FRACTION_WISE_MANY_KEYS ? DELETE_QUERY_MANY_KEYS : DELETE_QUERY).enableTracing();
+            PreparedStatement insertPreparedStatement = session.prepare(INSERT_QUERY);
 
             switch (CURRENT_TEST) {
                 case TEST_LOOKUP_PERFORMANCE_POSITIVE_QUERY_FRACTION_WISE:
@@ -112,6 +165,9 @@ public class Main {
                     runLookupAfterDeleteTestForVaryingDeletedDataPercentage(session, lookupPreparedStatement, deletePreparedStatement);
                 case TEST_LOOKUP_AFTER_DELETE_DATA_SIZE_WISE:
                     runLookupAfterDeleteTestForVaryingDataSize(session, lookupPreparedStatement, deletePreparedStatement);
+                    break;
+                case TEST_INSERTION:
+                    runInsertionTest(session, insertPreparedStatement);
                     break;
                 default:
                     throw new RuntimeException("Unknown value for CURRENT_TEST: " + CURRENT_TEST);
@@ -307,8 +363,58 @@ public class Main {
         }
     }
 
+    private static void runInsertionTest(Session session, PreparedStatement preparedStatement) throws FileNotFoundException {
+        TsvParserSettings settings = new TsvParserSettings();
+        settings.setMaxCharsPerColumn(999999);
+        TsvParser parser = new TsvParser(settings);
+
+        long start = System.currentTimeMillis();
+
+        long rows = 0;
+
+        for (String inputFileName : INPUT_FILE_NAMES) {
+            long fileRows = 0;
+
+            long innerStart = System.currentTimeMillis();
+
+            int idx = -1;
+            for (String[] row : parser.iterate(new FileReader("/Users/sharafat/review-data/" + inputFileName))){
+                idx++;
+                if (idx == 0) {
+                    // header row
+                    continue;
+                }
+
+                String[] values = new String[15];
+                for (int i = 0; i < values.length; i++) {
+                    values[i] = i < row.length ? row[i] : null;
+                }
+                BoundStatement statement = preparedStatement.bind(values[0], values[1], values[2], values[3], values[4],
+                        values[5], values[6],
+                        values[7] != null ? Integer.parseInt(values[7]) : null,
+                        values[7] != null ? Integer.parseInt(values[8]) : null,
+                        values[7] != null ? Integer.parseInt(values[9]) : null,
+                        values[10], values[11], values[12], values[13], values[14]);
+                executeQuery(-1, "INSERT", Arrays.toString(values), session, statement);
+                fileRows++;
+            }
+
+            long innerEnd = System.currentTimeMillis();
+
+            rows += fileRows;
+
+            System.out.println(inputFileName + " Rows: " + fileRows + ", duration: " + ((innerEnd - innerStart) / 1000.0) + " seconds.");
+        }
+
+        long end = System.currentTimeMillis();
+
+        double duration = (end - start) / 1000.0;
+
+        System.out.println("Total Rows: " + rows + ", duration: " + duration + " seconds");
+    }
+
     private static long executeQuery(int fraction, String segment, String key, Session session, BoundStatement statement) {
-        System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key);
+//        System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key);
 
         ResultSet resultSet = session.execute(statement.setReadTimeoutMillis(9999999));
         long rows = 0;
@@ -317,7 +423,7 @@ public class Main {
             rows++;
         }
 
-        System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key + ", Rows: " + rows);
+//        System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key + ", Rows: " + rows);
 
         return rows;
     }
