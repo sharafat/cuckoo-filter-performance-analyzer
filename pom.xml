@@ -78,7 +78,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>26.0-jre</version>
-            <type>bundle</type>
         </dependency>
 
     </dependencies>
