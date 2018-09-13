@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e2b14db-7d62-45b3-a127-47da8f5b5b97" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/data2/Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/AmazonReviewsSingleNodeExperiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/AmazonReviewsSingleNodeExperiment.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -51,7 +52,7 @@
           <entry key="CLASS" value="38" />
           <entry key="CSV" value="2" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="107" />
+          <entry key="JAVA" value="108" />
           <entry key="PLAIN_TEXT" value="12" />
           <entry key="Scratch" value="15" />
           <entry key="TSV" value="2" />
@@ -64,7 +65,7 @@
           <entry key="cql" value="10" />
           <entry key="csv" value="2" />
           <entry key="iml" value="1" />
-          <entry key="java" value="108" />
+          <entry key="java" value="109" />
           <entry key="sh" value="2" />
           <entry key="tsv" value="2" />
           <entry key="txt" value="14" />
@@ -76,7 +77,7 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data/ConnectedNodeData.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data1/ConnectedNodeData.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
               <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
@@ -84,11 +85,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="465">
+              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/AmazonReviewsMultiNodeExperiment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="27" column="51" lean-forward="true" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -97,16 +110,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/AmazonReviewsMultiNodeExperiment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="81" lean-forward="true" selection-start-line="4" selection-start-column="81" selection-end-line="4" selection-end-column="81" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data/RemoteNodesData.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data1/RemoteNodesData.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
               <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
@@ -182,7 +186,6 @@
         <option value="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/amazonreviews/singlenode/LookupPerformancePositiveResultFractionWiseExperiment.java" />
         <option value="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/LookupPerformancePositiveResultFractionWiseExperiment.java" />
         <option value="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/LookupPerformanceAfterDeletionQueryFractionWiseExperiment.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/LookupPerformanceAfterDeletionDataSizeWiseExperiment.java" />
         <option value="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/AmazonReviewsSingleNodeExperiment.java" />
         <option value="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/ConsoleWriter.java" />
         <option value="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/Config.java" />
@@ -209,6 +212,7 @@
         <option value="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/LookupPerformanceNegativeResultQueriesRemoteNodesFractionWiseExperiment.java" />
         <option value="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/Config.java" />
         <option value="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/LookupPerformanceAfterDeletionDataSizeWiseExperiment.java" />
       </list>
     </option>
   </component>
@@ -390,7 +394,7 @@
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
-      <hideEmptyPackages ProjectPane="true" />
+      <hideEmptyPackages ProjectPane="false" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -425,6 +429,61 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cuckoo-filter-performance-analyzer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cuckoo-filter-performance-analyzer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+              <item name="ac" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cuckoo-filter-performance-analyzer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cuckoo-filter-performance-analyzer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+              <item name="ac" type="462c0819:PsiDirectoryNode" />
+              <item name="buet" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cuckoo-filter-performance-analyzer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cuckoo-filter-performance-analyzer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+              <item name="ac" type="462c0819:PsiDirectoryNode" />
+              <item name="buet" type="462c0819:PsiDirectoryNode" />
+              <item name="cse" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cuckoo-filter-performance-analyzer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cuckoo-filter-performance-analyzer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+              <item name="ac" type="462c0819:PsiDirectoryNode" />
+              <item name="buet" type="462c0819:PsiDirectoryNode" />
+              <item name="cse" type="462c0819:PsiDirectoryNode" />
+              <item name="ms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cuckoo-filter-performance-analyzer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cuckoo-filter-performance-analyzer" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+              <item name="ac" type="462c0819:PsiDirectoryNode" />
+              <item name="buet" type="462c0819:PsiDirectoryNode" />
+              <item name="cse" type="462c0819:PsiDirectoryNode" />
+              <item name="ms" type="462c0819:PsiDirectoryNode" />
               <item name="thesis" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -433,6 +492,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+              <item name="ac" type="462c0819:PsiDirectoryNode" />
+              <item name="buet" type="462c0819:PsiDirectoryNode" />
+              <item name="cse" type="462c0819:PsiDirectoryNode" />
+              <item name="ms" type="462c0819:PsiDirectoryNode" />
               <item name="thesis" type="462c0819:PsiDirectoryNode" />
               <item name="experiments" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -442,6 +506,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+              <item name="ac" type="462c0819:PsiDirectoryNode" />
+              <item name="buet" type="462c0819:PsiDirectoryNode" />
+              <item name="cse" type="462c0819:PsiDirectoryNode" />
+              <item name="ms" type="462c0819:PsiDirectoryNode" />
               <item name="thesis" type="462c0819:PsiDirectoryNode" />
               <item name="experiments" type="462c0819:PsiDirectoryNode" />
               <item name="amazonreviews" type="462c0819:PsiDirectoryNode" />
@@ -452,6 +521,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+              <item name="ac" type="462c0819:PsiDirectoryNode" />
+              <item name="buet" type="462c0819:PsiDirectoryNode" />
+              <item name="cse" type="462c0819:PsiDirectoryNode" />
+              <item name="ms" type="462c0819:PsiDirectoryNode" />
               <item name="thesis" type="462c0819:PsiDirectoryNode" />
               <item name="experiments" type="462c0819:PsiDirectoryNode" />
               <item name="amazonreviews" type="462c0819:PsiDirectoryNode" />
@@ -463,11 +537,16 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+              <item name="ac" type="462c0819:PsiDirectoryNode" />
+              <item name="buet" type="462c0819:PsiDirectoryNode" />
+              <item name="cse" type="462c0819:PsiDirectoryNode" />
+              <item name="ms" type="462c0819:PsiDirectoryNode" />
               <item name="thesis" type="462c0819:PsiDirectoryNode" />
               <item name="experiments" type="462c0819:PsiDirectoryNode" />
               <item name="amazonreviews" type="462c0819:PsiDirectoryNode" />
               <item name="multinode" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="data1" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="cuckoo-filter-performance-analyzer" type="b2602c69:ProjectViewProjectNode" />
@@ -475,6 +554,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+              <item name="ac" type="462c0819:PsiDirectoryNode" />
+              <item name="buet" type="462c0819:PsiDirectoryNode" />
+              <item name="cse" type="462c0819:PsiDirectoryNode" />
+              <item name="ms" type="462c0819:PsiDirectoryNode" />
               <item name="thesis" type="462c0819:PsiDirectoryNode" />
               <item name="experiments" type="462c0819:PsiDirectoryNode" />
               <item name="amazonreviews" type="462c0819:PsiDirectoryNode" />
@@ -486,11 +570,16 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bd" type="462c0819:PsiDirectoryNode" />
+              <item name="ac" type="462c0819:PsiDirectoryNode" />
+              <item name="buet" type="462c0819:PsiDirectoryNode" />
+              <item name="cse" type="462c0819:PsiDirectoryNode" />
+              <item name="ms" type="462c0819:PsiDirectoryNode" />
               <item name="thesis" type="462c0819:PsiDirectoryNode" />
               <item name="experiments" type="462c0819:PsiDirectoryNode" />
               <item name="amazonreviews" type="462c0819:PsiDirectoryNode" />
               <item name="singlenode" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="data2" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -582,7 +671,7 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3211731" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3211731" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="DB Browser" order="2" />
       <window_info id="Designer" order="3" />
@@ -877,17 +966,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/LookupPerformanceAfterDeletionDataSizeWiseExperiment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="75" selection-start-line="15" selection-start-column="75" selection-end-line="15" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data/RemoteNodesData.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data1/RemoteNodesData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
@@ -960,7 +1039,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/data/Data.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/data2/Data.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
@@ -970,7 +1049,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data/RemoteNodesData.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data1/RemoteNodesData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
@@ -997,7 +1076,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data/ConnectedNodeData.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data1/ConnectedNodeData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
@@ -1011,24 +1090,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data/Data.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/data1/Data.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/AmazonReviewsMultiNodeExperiment.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/LookupPerformanceAfterDeletionDataSizeWiseExperiment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="81" lean-forward="true" selection-start-line="4" selection-start-column="81" selection-end-line="4" selection-end-column="81" />
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="465">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/multinode/AmazonReviewsMultiNodeExperiment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="51" lean-forward="true" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
