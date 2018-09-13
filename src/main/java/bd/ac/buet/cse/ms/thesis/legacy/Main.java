@@ -116,7 +116,7 @@ public class Main {
             "amazon_reviews_us_Wireless_v1_00.tsv"
     };
 
-    public static final String INPUT_FILE_PATH = "/home/ubuntu/review-data/";
+    public static final String INPUT_FILE_PATH = "/home/ubuntu/review-data1/";
 
     protected static final Integer[] FRACTIONS = new Integer[]{0, 2, 4, 6, 8};
     private static final Integer[] FRACTIONS_FOR_DELETION = new Integer[]{0, 2, 4, 6, 8};

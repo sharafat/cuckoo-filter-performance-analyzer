@@ -16,14 +16,14 @@ public interface DataProvider<T> {
     int[] getFractions();
 
     /**
-     * Each consecutive pair in the returned array should return similar-size data cumulatively (e.g. 2 GB)
+     * Each consecutive pair in the returned array should return similar-size data1 cumulatively (e.g. 2 GB)
      */
     T[] getKeysThatHaveData();
 
     T[] getKeysThatDoNotHaveData();
 
     /**
-     * Each consecutive pair in the returned array should have similar-size data deleted cumulatively (e.g. 2 GB)
+     * Each consecutive pair in the returned array should have similar-size data1 deleted cumulatively (e.g. 2 GB)
      */
     T[] getKeysThatHaveDataDeleted();
 

@@ -22,7 +22,7 @@ public class Tsv2Csv {
         CsvWriterSettings writerSettings = new CsvWriterSettings();
         writerSettings.setMaxCharsPerColumn(999999);
         writerSettings.setQuoteAllFields(true);
-        CsvWriter writer = new CsvWriter(new FileWriter(INPUT_FILE_PATH + "data.csv"), writerSettings);
+        CsvWriter writer = new CsvWriter(new FileWriter(INPUT_FILE_PATH + "data1.csv"), writerSettings);
 
         long start = System.currentTimeMillis();
 

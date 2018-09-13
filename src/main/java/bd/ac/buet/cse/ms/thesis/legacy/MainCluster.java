@@ -28,7 +28,7 @@ public class MainCluster extends Main {
     private static final int TEST_LOOKUP_PERFORMANCE_FOR_FRACTION_OF_QUERIES_IN_OTHER_NODES_ALL_NEGATIVE = 5;
     // some keys requested from connected node, others from other node, all keys result in deleted
     private static final int TEST_LOOKUP_PERFORMANCE_FOR_FRACTION_OF_QUERIES_IN_OTHER_NODES_ALL_DELETED = 6;
-    // some keys requested from connected node, others from other node, all keys result in positive, huge amount of data retrieval
+    // some keys requested from connected node, others from other node, all keys result in positive, huge amount of data1 retrieval
     private static final int TEST_LOOKUP_PERFORMANCE_FOR_FRACTION_OF_QUERIES_IN_OTHER_NODES_ALL_POSITIVE_LARGE_RESULT = 7;
 
     private static final int TEST_ALL = -1;

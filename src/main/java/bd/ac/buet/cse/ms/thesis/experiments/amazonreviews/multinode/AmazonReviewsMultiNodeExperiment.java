@@ -2,8 +2,8 @@ package bd.ac.buet.cse.ms.thesis.experiments.amazonreviews.multinode;
 
 import bd.ac.buet.cse.ms.thesis.experiments.DataProvider;
 import bd.ac.buet.cse.ms.thesis.experiments.Experiment;
-import bd.ac.buet.cse.ms.thesis.experiments.amazonreviews.multinode.data.ConnectedNodeData;
-import bd.ac.buet.cse.ms.thesis.experiments.amazonreviews.multinode.data.RemoteNodesData;
+import bd.ac.buet.cse.ms.thesis.experiments.amazonreviews.multinode.data1.ConnectedNodeData;
+import bd.ac.buet.cse.ms.thesis.experiments.amazonreviews.multinode.data1.RemoteNodesData;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.SimpleStatement;
 import com.datastax.driver.core.Statement;
