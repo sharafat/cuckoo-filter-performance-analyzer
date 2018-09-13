@@ -2,7 +2,7 @@ package bd.ac.buet.cse.ms.thesis.experiments.amazonreviews.singlenode;
 
 import bd.ac.buet.cse.ms.thesis.experiments.DataProvider;
 import bd.ac.buet.cse.ms.thesis.experiments.Experiment;
-import bd.ac.buet.cse.ms.thesis.experiments.amazonreviews.Data;
+import bd.ac.buet.cse.ms.thesis.experiments.amazonreviews.singlenode.data.Data;
 import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Statement;
