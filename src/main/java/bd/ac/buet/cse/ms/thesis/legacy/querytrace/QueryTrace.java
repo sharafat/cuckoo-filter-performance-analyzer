@@ -1,4 +1,4 @@
-package bd.ac.buet.cse.ms.thesis;
+package bd.ac.buet.cse.ms.thesis.legacy.querytrace;
 
 import java.util.ArrayList;
 import java.util.List;

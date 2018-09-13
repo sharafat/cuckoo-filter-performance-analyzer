@@ -1,4 +1,4 @@
-package bd.ac.buet.cse.ms.thesis;
+package bd.ac.buet.cse.ms.thesis.legacy.utils;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;

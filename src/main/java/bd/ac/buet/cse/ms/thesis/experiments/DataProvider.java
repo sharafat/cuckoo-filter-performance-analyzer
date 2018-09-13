@@ -1,0 +1,28 @@
+package bd.ac.buet.cse.ms.thesis.experiments;
+
+import java.util.Map;
+
+public interface DataProvider<T> {
+
+    String LABEL_HAS_DATA = "HAS_DATA";
+    String LABEL_NO_DATA = "NO_DATA";
+    String LABEL_DELETED_DATA = "DELETED_DATA";
+
+    int[] getFractions();
+
+    /**
+     * Each consecutive pair in the returned array should return similar-size data cumulatively (e.g. 2 GB)
+     */
+    T[] getKeysThatHaveData();
+
+    T[] getKeysThatDoNotHaveData();
+
+    /**
+     * Each consecutive pair in the returned array should have similar-size data deleted cumulatively (e.g. 2 GB)
+     */
+    T[] getKeysThatHaveDataDeleted();
+
+    Map<Integer, T[]> getKeysThatHaveDataDeletedPerDataSize();
+
+    String getLookupQuery();
+}

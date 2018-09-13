@@ -1,5 +1,6 @@
-package bd.ac.buet.cse.ms.thesis;
+package bd.ac.buet.cse.ms.thesis.legacy;
 
+import bd.ac.buet.cse.ms.thesis.legacy.utils.SoundUtils;
 import com.datastax.driver.core.*;
 import com.datastax.driver.core.QueryTrace;
 import com.datastax.driver.core.policies.DCAwareRoundRobinPolicy;

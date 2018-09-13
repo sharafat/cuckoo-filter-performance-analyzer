@@ -23,7 +23,9 @@
                     <archive>
                         <manifest>
                             <mainClass>bd.ac.buet.cse.ms.thesis.Main</mainClass>
-                            <mainClass>Tsv2Csv</mainClass>
+                            <mainClass>bd.ac.buet.cse.ms.thesis.legacy.Main</mainClass>
+                            <mainClass>bd.ac.buet.cse.ms.thesis.legacy.MainCluster</mainClass>
+                            <mainClass>bd.ac.buet.cse.ms.thesis.legacy.utils.Tsv2Csv</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -70,6 +72,13 @@
             <groupId>com.univocity</groupId>
             <artifactId>univocity-parsers</artifactId>
             <version>2.7.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>26.0-jre</version>
+            <type>bundle</type>
         </dependency>
 
     </dependencies>

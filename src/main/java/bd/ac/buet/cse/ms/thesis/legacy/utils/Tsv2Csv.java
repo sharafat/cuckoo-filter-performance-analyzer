@@ -1,3 +1,5 @@
+package bd.ac.buet.cse.ms.thesis.legacy.utils;
+
 import com.univocity.parsers.csv.CsvWriter;
 import com.univocity.parsers.csv.CsvWriterSettings;
 import com.univocity.parsers.tsv.TsvParser;
@@ -7,8 +9,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static bd.ac.buet.cse.ms.thesis.Main.INPUT_FILE_NAMES;
-import static bd.ac.buet.cse.ms.thesis.Main.INPUT_FILE_PATH;
+import static bd.ac.buet.cse.ms.thesis.legacy.Main.INPUT_FILE_NAMES;
+import static bd.ac.buet.cse.ms.thesis.legacy.Main.INPUT_FILE_PATH;
 
 public class Tsv2Csv {
 
