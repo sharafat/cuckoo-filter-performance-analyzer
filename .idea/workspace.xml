@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3e2b14db-7d62-45b3-a127-47da8f5b5b97" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/DummyExperiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/DummyExperiment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/ExperimentRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/ExperimentRunner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/Data.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -35,7 +33,7 @@
         <counts>
           <entry key="cql" value="60" />
           <entry key="dummy" value="16" />
-          <entry key="java" value="13519" />
+          <entry key="java" value="13583" />
           <entry key="sh" value="45" />
           <entry key="txt" value="123" />
           <entry key="xml" value="23" />
@@ -43,7 +41,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="13519" />
+          <entry key="JAVA" value="13583" />
           <entry key="PLAIN_TEXT" value="121" />
           <entry key="Scratch" value="123" />
           <entry key="XML" value="23" />
@@ -93,8 +91,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/Data.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="597">
-              <caret line="80" column="247" lean-forward="true" selection-start-line="80" selection-start-column="63" selection-end-line="80" selection-end-column="247" />
+            <state relative-caret-position="203">
+              <caret line="73" column="26" lean-forward="true" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2859#2860#0" expanded="true" />
@@ -904,22 +902,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/LookupPerformanceAfterDeletionQueryFractionWiseExperiment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/Data.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
-          <caret line="80" column="247" lean-forward="true" selection-start-line="80" selection-start-column="63" selection-end-line="80" selection-end-column="247" />
+        <state relative-caret-position="203">
+          <caret line="73" column="26" lean-forward="true" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2859#2860#0" expanded="true" />
             <element signature="e#2898#2899#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bd/ac/buet/cse/ms/thesis/experiments/amazonreviews/singlenode/LookupPerformanceAfterDeletionQueryFractionWiseExperiment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>

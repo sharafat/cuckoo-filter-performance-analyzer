@@ -11,8 +11,8 @@ public class Main {
 
     private static final Experiment[] EXPERIMENTS = new Experiment[] {
 //            new LookupPerformancePositiveResultQueryFractionWiseExperiment(),
-            new LookupPerformanceAfterDeletionQueryFractionWiseExperiment(),
-//            new LookupPerformanceAfterDeletionDataSizeWiseExperiment(),
+//            new LookupPerformanceAfterDeletionQueryFractionWiseExperiment(),
+            new LookupPerformanceAfterDeletionDataSizeWiseExperiment(),
             new DummyExperiment()
     };
 
