@@ -39,7 +39,7 @@ public class ExperimentRunner {
         for (Experiment experiment : experiments) {
             experiment.setSession(session);
             experiment.setOutputWriter(outputWriter);
-            System.out.println(experiment.toString() + "\n");
+            outputWriter.writeLine(experiment.toString() + "\n");
             experiment.run();
         }
     }

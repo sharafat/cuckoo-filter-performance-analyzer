@@ -77,6 +77,8 @@ public class Data implements DataProvider<String> {
     }};
 
     private static final String LOOKUP_QUERY = "SELECT * FROM amazon_reviews WHERE product_category = ?";
+    private static final String DELETION_QUERY = "DELETE FROM amazon_reviews WHERE product_category IN ('Shoes', 'Furniture', 'Automotive', 'Digital_Music_Purchase', 'Pet_Products', 'Grocery', 'Home_Improvement', 'Lawn_and_Garden');";
+    private static final String LOOKUP_AFTER_DELETION_QUERY = "SELECT * FROM amazon_reviews WHERE product_category IN ('Shoes', 'Furniture', 'Automotive', 'Digital_Music_Purchase', 'Pet_Products', 'Grocery', 'Home_Improvement', 'Lawn_and_Garden');";
 
     @Override
     public int[] getFractions() {
