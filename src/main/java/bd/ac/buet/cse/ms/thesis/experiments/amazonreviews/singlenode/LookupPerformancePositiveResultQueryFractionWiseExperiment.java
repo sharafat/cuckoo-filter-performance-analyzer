@@ -2,7 +2,7 @@ package bd.ac.buet.cse.ms.thesis.experiments.amazonreviews.singlenode;
 
 import bd.ac.buet.cse.ms.thesis.experiments.DataProvider;
 
-public class LookupPerformancePositiveResultQueriesRemoteNodesFractionWiseExperiment extends AmazonReviewsSingleNodeExperiment {
+public class LookupPerformancePositiveResultQueryFractionWiseExperiment extends AmazonReviewsSingleNodeExperiment {
 
     @Override
     public String toString() {
