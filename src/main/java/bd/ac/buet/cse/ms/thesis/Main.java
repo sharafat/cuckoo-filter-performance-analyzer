@@ -15,8 +15,8 @@ public class Main {
     private static final Experiment[] EXPERIMENTS = new Experiment[] {
             // Amazon Reviews Data on Single Node
 //            new LookupPerformancePositiveResultQueryFractionWiseExperiment(),
-            new LookupPerformanceAfterDeletionQueryFractionWiseExperiment(),
-//            new LookupPerformanceAfterDeletionDataSizeWiseExperiment(),
+//            new LookupPerformanceAfterDeletionQueryFractionWiseExperiment(),
+            new LookupPerformanceAfterDeletionDataSizeWiseExperiment(),
 
             // Amazon Reviews Data on Multi Nodes
 //            new LookupPerformanceInRemoteNodesPositiveResultQueryFractionWiseExperiment(),
