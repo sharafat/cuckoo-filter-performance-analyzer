@@ -4,6 +4,7 @@ import bd.ac.buet.cse.ms.thesis.experiments.DataProvider;
 import com.google.common.collect.ObjectArrays;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Data implements DataProvider<String> {
@@ -50,7 +51,7 @@ public class Data implements DataProvider<String> {
     };
 
     private static final Map<Integer /* Data size in GB */, String[] /* Key list */> KEYS_HAVING_DATA_DELETED_SIZE_WISE
-            = new HashMap<Integer, String[]>() {{
+            = new LinkedHashMap<Integer, String[]>() {{
         String[] oneGb = new String[]{"Lawn_and_Garden"};
         String[] tenGb = new String[]{"Books", "Digital_Ebook_Purchase", "Electronics"};
         String[] twentyGb = ObjectArrays.concat(tenGb,
