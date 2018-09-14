@@ -17,11 +17,11 @@ public class Main {
 //            new LookupPerformanceAfterDeletionDataSizeWiseExperiment(),
 
             // Amazon Reviews Data on Multi Nodes
-//            new LookupPerformanceInRemoteNodesPositiveResultQueryFractionWiseExperiment(),
-//            new LookupPerformancePositiveResultQueriesRemoteNodesFractionWiseExperiment(),
-//            new LookupPerformanceNegativeResultQueriesRemoteNodesFractionWiseExperiment(),
+            new LookupPerformanceInRemoteNodesPositiveResultQueryFractionWiseExperiment(),
+            new LookupPerformancePositiveResultQueriesRemoteNodesFractionWiseExperiment(),
+            new LookupPerformanceNegativeResultQueriesRemoteNodesFractionWiseExperiment(),
 //            new LookupPerformanceDeletedRowsQueriesRemoteNodesFractionWiseExperiment(),
-            new LookupPerformanceInRemoteNodesDeletedRowsQueriesDataSizeWiseExperiment(),
+//            new LookupPerformanceInRemoteNodesDeletedRowsQueriesDataSizeWiseExperiment(),
 
             // Dummy
             new DummyExperiment()
