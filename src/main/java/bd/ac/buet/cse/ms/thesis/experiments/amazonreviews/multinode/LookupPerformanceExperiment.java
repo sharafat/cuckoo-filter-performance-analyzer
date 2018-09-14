@@ -31,7 +31,7 @@ public class LookupPerformanceExperiment extends AmazonReviewsMultiNodeExperimen
 
             long end = System.currentTimeMillis();
 
-            double durationInSeconds = (end - start) / 1000.0;
+            double durationInSeconds = (end - start);
 
             addResult(fraction, durationInSeconds);
         }
