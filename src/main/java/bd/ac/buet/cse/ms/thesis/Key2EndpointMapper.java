@@ -23,8 +23,8 @@ public class Key2EndpointMapper {
     public static void main(String[] args) {
         Keys2Endpoints<String> keys2Endpoints = new Keys2Endpoints<String>(Config.CASSANDRA_BIN_PATH);
 
-//        Map<String, String> map = keys2Endpoints.map(Dataset.KEYS, Config.KEYSPACE, Dataset.TABLE);
-        Map<String, String> map = keys2Endpoints.map(imaginaryKeys, Config.KEYSPACE, Dataset.TABLE);
+        Map<String, String> map = keys2Endpoints.map(Dataset.KEYS, Config.KEYSPACE, Dataset.TABLE);
+//        Map<String, String> map = keys2Endpoints.map(imaginaryKeys, Config.KEYSPACE, Dataset.TABLE);
 
         out.writeLine(map);
     }
