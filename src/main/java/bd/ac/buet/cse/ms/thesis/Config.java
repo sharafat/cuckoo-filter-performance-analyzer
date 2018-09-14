@@ -2,7 +2,7 @@ package bd.ac.buet.cse.ms.thesis;
 
 public interface Config {
 
-    String SERVER_ADDRESS = "13.58.128.104";
+    String SERVER_ADDRESS = "18.220.232.203";
 
     int SERVER_PORT = 9042;
 

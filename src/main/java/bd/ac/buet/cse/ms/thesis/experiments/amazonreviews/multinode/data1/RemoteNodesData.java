@@ -8,7 +8,7 @@ import java.util.Map;
 public class RemoteNodesData extends Data {
 
     /**
-     * ~2GB data1 size per pair
+     * ~2GB data size per pair
      */
     private static final String[] KEYS_HAVING_DATA = new String[]{
             "Beauty",
@@ -33,7 +33,7 @@ public class RemoteNodesData extends Data {
     };
 
     /**
-     * ~2GB data1 size per pair
+     * ~2GB data size per pair
      */
     private static final String[] KEYS_HAVING_DATA_DELETED = new String[]{
             "Shoes",

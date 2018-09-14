@@ -8,17 +8,17 @@ import java.util.Map;
 public class ConnectedNodeData extends Data {
 
     /**
-     * ~2GB data1 size per pair
+     * ~2GB data size per pair
      */
     private static final String[] KEYS_HAVING_DATA = new String[]{
+            "Home_Improvement",
+            "Outdoors",
+            "Kitchen",
+            "Digital_Video_Games",
             "Beauty",
-            "Personal_Care_Appliances",
-            "Video_DVD",
-            "Digital_Software",
-            "Mobile_Apps",
             "Mobile_Electronics",
-            "Sports",
-            "Luggage"
+            "PC",
+            "Personal_Care_Appliances"
     };
 
     private static final String[] KEYS_NOT_HAVING_DATA = new String[]{
@@ -33,18 +33,9 @@ public class ConnectedNodeData extends Data {
     };
 
     /**
-     * ~2GB data1 size per pair
+     * ~2GB data size per pair
      */
-    private static final String[] KEYS_HAVING_DATA_DELETED = new String[]{
-            "Shoes",
-            "Furniture",
-            "Automotive",
-            "Digital_Music_Purchase",
-            "Pet_Products",
-            "Grocery",
-            "Home_Improvement",
-            "Lawn_and_Garden"
-    };
+    private static final String[] KEYS_HAVING_DATA_DELETED = KEYS_HAVING_DATA;
 
     private static final Map<Integer /* Data size in GB */, String[] /* Key list */> KEYS_HAVING_DATA_DELETED_SIZE_WISE
             = new LinkedHashMap<Integer, String[]>() {{

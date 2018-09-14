@@ -2,9 +2,9 @@ package bd.ac.buet.cse.ms.thesis.experiments.amazonreviews;
 
 public class Dataset {
 
-    public static String table = "amazon_reviews";
+    public static String TABLE = "amazon_reviews";
 
-    public static String[] keys = new String[]{
+    public static String[] KEYS = new String[]{
             "Personal_Care_Appliances",
             "Digital_Software",
             "Major_Appliances",

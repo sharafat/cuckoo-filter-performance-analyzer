@@ -11,10 +11,15 @@ public class Key2EndpointMapper {
 
     private static final OutputWriter out = new ConsoleWriter();
 
+    private static final String[] imaginaryKeys = new String[] {
+            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V"
+    };
+
     public static void main(String[] args) {
         Keys2Endpoints<String> keys2Endpoints = new Keys2Endpoints<String>(Config.CASSANDRA_BIN_PATH);
 
-        Map<String, String> map = keys2Endpoints.map(Dataset.keys, Config.KEYSPACE, Dataset.table);
+//        Map<String, String> map = keys2Endpoints.map(Dataset.KEYS, Config.KEYSPACE, Dataset.TABLE);
+        Map<String, String> map = keys2Endpoints.map(imaginaryKeys, Config.KEYSPACE, Dataset.TABLE);
 
         out.writeLine(map);
     }

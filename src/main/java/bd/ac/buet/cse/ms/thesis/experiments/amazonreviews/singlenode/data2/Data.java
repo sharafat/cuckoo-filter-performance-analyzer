@@ -11,7 +11,7 @@ public class Data implements DataProvider<String> {
     private static final int[] FRACTIONS = new int[]{0, 2, 4, 6, 8};
 
     /**
-     * ~2GB data1 size per pair
+     * ~2GB data size per pair
      */
     private static final String[] KEYS_HAVING_DATA = new String[]{
             "Beauty",
@@ -36,7 +36,7 @@ public class Data implements DataProvider<String> {
     };
 
     /**
-     * ~2GB data1 size per pair
+     * ~2GB data size per pair
      */
     private static final String[] KEYS_HAVING_DATA_DELETED = new String[]{
             "Shoes",
