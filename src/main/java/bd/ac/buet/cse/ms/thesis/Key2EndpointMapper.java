@@ -12,7 +12,9 @@ public class Key2EndpointMapper {
     private static final OutputWriter out = new ConsoleWriter();
 
     private static final String[] imaginaryKeys = new String[] {
-            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V"
+            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
+            "AA", "BB", "CC", "DD", "EE", "FF", "GG", "HH", "II", "JJ", "KK", "LL", "MM", "NN", "OO", "PP", "QQ", "RR",
+            "ABC", "DEF", "GHI", "JKL", "MNO", "PQR", "STU", "VWX", "YZ"
     };
 
     public static void main(String[] args) {
