@@ -20,8 +20,8 @@ public class Main {
 //            new LookupPerformanceInRemoteNodesPositiveResultQueryFractionWiseExperiment(),
 //            new LookupPerformancePositiveResultQueriesRemoteNodesFractionWiseExperiment(),
 //            new LookupPerformanceNegativeResultQueriesRemoteNodesFractionWiseExperiment(),
-            new LookupPerformanceDeletedRowsQueriesRemoteNodesFractionWiseExperiment(),
-//            new LookupPerformanceInRemoteNodesDeletedRowsQueriesDataSizeWiseExperiment(),
+//            new LookupPerformanceDeletedRowsQueriesRemoteNodesFractionWiseExperiment(),
+            new LookupPerformanceInRemoteNodesDeletedRowsQueriesDataSizeWiseExperiment(),
 
             // Dummy
             new DummyExperiment()
