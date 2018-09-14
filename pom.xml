@@ -23,6 +23,7 @@
                     <archive>
                         <manifest>
                             <mainClass>bd.ac.buet.cse.ms.thesis.Main</mainClass>
+                            <mainClass>bd.ac.buet.cse.ms.thesis.Key2EndpointMapper</mainClass>
                             <mainClass>bd.ac.buet.cse.ms.thesis.legacy.Main</mainClass>
                             <mainClass>bd.ac.buet.cse.ms.thesis.legacy.MainCluster</mainClass>
                             <mainClass>bd.ac.buet.cse.ms.thesis.legacy.utils.Tsv2Csv</mainClass>

@@ -14,4 +14,6 @@ public interface Config {
 
     boolean DEBUG_LOG_QUERY_EXECUTION = true;
 
+    String CASSANDRA_BIN_PATH = "/home/ubuntu/cassandra/bin";
+
 }
