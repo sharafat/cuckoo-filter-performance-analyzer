@@ -19,8 +19,8 @@ public class Main {
             // Amazon Reviews Data on Multi Nodes
 //            new LookupPerformanceInRemoteNodesPositiveResultQueryFractionWiseExperiment(),
 //            new LookupPerformancePositiveResultQueriesRemoteNodesFractionWiseExperiment(),
-            new LookupPerformanceNegativeResultQueriesRemoteNodesFractionWiseExperiment(),
-//            new LookupPerformanceDeletedRowsQueriesRemoteNodesFractionWiseExperiment(),
+//            new LookupPerformanceNegativeResultQueriesRemoteNodesFractionWiseExperiment(),
+            new LookupPerformanceDeletedRowsQueriesRemoteNodesFractionWiseExperiment(),
 //            new LookupPerformanceInRemoteNodesDeletedRowsQueriesDataSizeWiseExperiment(),
 
             // Dummy
