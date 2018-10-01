@@ -488,7 +488,7 @@ public class Main {
             rows++;
         }
 
-//        System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key + ", Rows: " + rows);
+        System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key + ", Rows: " + rows);
 
         return rows;
     }
