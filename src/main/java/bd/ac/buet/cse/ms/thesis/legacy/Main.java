@@ -383,7 +383,7 @@ public class Main {
 //        executeQuery(-1, "_DELETED_DATA", "", session, statement);
 
         StringBuilder query = new StringBuilder("SELECT * FROM air_traffic WHERE \"Id\" IN (1");
-        for (int i = 2; i <= 1000000; i++) {
+        for (int i = 2; i <= 100000; i++) {
             query.append(", ").append(Integer.toString(i));
         }
         query.append(")");
