@@ -401,16 +401,16 @@ public class Main {
 //        System.out.println(duration);
 
 
-//        PreparedStatement delete = session.prepare(DELETE_QUERY_MANY_KEYS);
-//        for (int i = 1; i <= 100000; i++) {
-//            BoundStatement boundStatement = delete.bind(i);
-//            executeQuery(-1, "_DELETED_DATA", Integer.toString(i), session, boundStatement);
-////            System.out.println(i);
-//        }
-//        System.out.println(new Date().toString() + " Deleted data.");
-//
-//
-//
+        PreparedStatement delete = session.prepare(DELETE_QUERY_MANY_KEYS);
+        for (int i = 1; i <= 10000; i++) {
+            BoundStatement boundStatement = delete.bind(i);
+            executeQuery(-1, "_DELETED_DATA", Integer.toString(i), session, boundStatement);
+//            System.out.println(i);
+        }
+        System.out.println(new Date().toString() + " Deleted data.");
+
+
+
         PreparedStatement statement1 = session.prepare(LOOKUP_QUERY_MANY_KEYS);
 
         long start = System.currentTimeMillis();
@@ -426,6 +426,24 @@ public class Main {
         double duration = (end - start) / 1000.0;
 
         System.out.println(duration);
+
+
+
+        PreparedStatement statement2 = session.prepare(LOOKUP_QUERY_MANY_KEYS);
+
+        long start2 = System.currentTimeMillis();
+
+        for (int i = 1; i <= 10000; i++) {
+            BoundStatement boundStatement = statement1.bind(i);
+            executeQuery(-1, "_DELETED_DATA", Integer.toString(i), session, boundStatement);
+//            System.out.println(i);
+        }
+
+        long end2 = System.currentTimeMillis();
+
+        double duration2 = (end2 - start2) / 1000.0;
+
+        System.out.println(duration2);
     }
 
     private static void runInsertionTest(Session session, PreparedStatement preparedStatement) throws FileNotFoundException {
@@ -488,7 +506,7 @@ public class Main {
             rows++;
         }
 
-        System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key + ", Rows: " + rows);
+//        System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key + ", Rows: " + rows);
 
         return rows;
     }
