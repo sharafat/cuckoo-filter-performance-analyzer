@@ -15,7 +15,7 @@ import java.util.*;
 
 public class Main {
 
-    protected static final String SERVER_IP = "13.58.35.128";
+    protected static final String SERVER_IP = "127.0.0.1";
     protected static final String KEYSPACE = "cuckoo_test";
     private static final String LOOKUP_QUERY = "SELECT * FROM amazon_reviews WHERE product_category = ?";
     private static final String LOOKUP_QUERY_MANY_KEYS = "SELECT * FROM air_traffic WHERE \"Id\" = ?";
@@ -130,9 +130,10 @@ public class Main {
     private static final int TEST_LOOKUP_AFTER_DELETE = 4;
     private static final int TEST_LOOKUP_AFTER_DELETE_DELETED_QUERY_FRACTION_WISE = 5;
     private static final int TEST_LOOKUP_AFTER_DELETE_DATA_SIZE_WISE = 6;
-    private static final int TEST_INSERTION = 7;
+    private static final int TEST_LOOKUP_AFTER_DELETE_ACCURACY_WISE = 7;
+    private static final int TEST_INSERTION = 8;
 
-    private static final int CURRENT_TEST = TEST_INSERTION;
+    private static final int CURRENT_TEST = TEST_LOOKUP_AFTER_DELETE_ACCURACY_WISE;
 
     public static void main(String[] args) {
         try {
@@ -168,6 +169,9 @@ public class Main {
                     runLookupAfterDeleteTestForVaryingDeletedDataPercentage(session, lookupPreparedStatement, deletePreparedStatement);
                 case TEST_LOOKUP_AFTER_DELETE_DATA_SIZE_WISE:
                     runLookupAfterDeleteTestForVaryingDataSize(session, lookupPreparedStatement, deletePreparedStatement);
+                    break;
+                case TEST_LOOKUP_AFTER_DELETE_ACCURACY_WISE:
+                    runLookupAfterDeleteTestForVaryingAccuracy(session);
                     break;
                 case TEST_INSERTION:
                     runInsertionTest(session, insertPreparedStatement);
@@ -366,6 +370,64 @@ public class Main {
         }
     }
 
+    private static void runLookupAfterDeleteTestForVaryingAccuracy(Session session) {
+
+//        StringBuilder query = new StringBuilder("DELETE FROM air_traffic WHERE \"Id\" IN (1");
+//        for (int i = 2; i <= 1000000; i++) {
+//            query.append(", ").append(Integer.toString(i));
+//        }
+//        query.append(")");
+//
+//        SimpleStatement statement = new SimpleStatement(query.toString());
+//
+//        executeQuery(-1, "_DELETED_DATA", "", session, statement);
+
+//        StringBuilder query = new StringBuilder("SELECT * FROM air_traffic WHERE \"Id\" IN (1");
+//        for (int i = 2; i <= 1000000; i++) {
+//            query.append(", ").append(Integer.toString(i));
+//        }
+//        query.append(")");
+//
+//        SimpleStatement statement = new SimpleStatement(query.toString());
+//
+//        long start = System.currentTimeMillis();
+//
+//        executeQuery(-1, "_DELETED_DATA", "", session, statement);
+//
+//        long end = System.currentTimeMillis();
+//
+//        double duration = (end - start) / 1000.0;
+//
+//        System.out.println(duration);
+
+
+        PreparedStatement delete = session.prepare(DELETE_QUERY_MANY_KEYS);
+        for (int i = 1; i <= 100000; i++) {
+            BoundStatement boundStatement = delete.bind(i);
+            executeQuery(-1, "_DELETED_DATA", "", session, boundStatement);
+//            System.out.println(i);
+        }
+        System.out.println(new Date().toString() + " Deleted data.");
+
+
+
+        PreparedStatement statement1 = session.prepare(LOOKUP_QUERY_MANY_KEYS);
+
+        long start = System.currentTimeMillis();
+
+        for (int i = 1; i <= 100000; i++) {
+            BoundStatement boundStatement = statement1.bind(i);
+            executeQuery(-1, "_DELETED_DATA", "", session, boundStatement);
+//            System.out.println(i);
+        }
+
+        long end = System.currentTimeMillis();
+
+        double duration = (end - start) / 1000.0;
+
+        System.out.println(duration);
+    }
+
     private static void runInsertionTest(Session session, PreparedStatement preparedStatement) throws FileNotFoundException {
         TsvParserSettings settings = new TsvParserSettings();
         settings.setMaxCharsPerColumn(999999);
@@ -416,7 +478,7 @@ public class Main {
         System.out.println("Total Rows: " + rows + ", duration: " + duration + " seconds");
     }
 
-    private static long executeQuery(int fraction, String segment, String key, Session session, BoundStatement statement) {
+    private static long executeQuery(int fraction, String segment, String key, Session session, Statement statement) {
 //        System.out.println(new Date().toString() + ": Fraction: " + fraction + ", Segment: " + segment + ", Key: " + key);
 
         ResultSet resultSet = session.execute(statement.setReadTimeoutMillis(9999999));
