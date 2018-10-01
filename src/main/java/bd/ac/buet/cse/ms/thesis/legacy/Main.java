@@ -404,7 +404,7 @@ public class Main {
         PreparedStatement delete = session.prepare(DELETE_QUERY_MANY_KEYS);
         for (int i = 1; i <= 100000; i++) {
             BoundStatement boundStatement = delete.bind(i);
-            executeQuery(-1, "_DELETED_DATA", "", session, boundStatement);
+            executeQuery(-1, "_DELETED_DATA", Integer.toString(i), session, boundStatement);
 //            System.out.println(i);
         }
         System.out.println(new Date().toString() + " Deleted data.");
@@ -417,7 +417,7 @@ public class Main {
 
         for (int i = 1; i <= 100000; i++) {
             BoundStatement boundStatement = statement1.bind(i);
-            executeQuery(-1, "_DELETED_DATA", "", session, boundStatement);
+            executeQuery(-1, "_DELETED_DATA", Integer.toString(i), session, boundStatement);
 //            System.out.println(i);
         }
 
