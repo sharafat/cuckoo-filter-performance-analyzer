@@ -382,50 +382,50 @@ public class Main {
 //
 //        executeQuery(-1, "_DELETED_DATA", "", session, statement);
 
-//        StringBuilder query = new StringBuilder("SELECT * FROM air_traffic WHERE \"Id\" IN (1");
-//        for (int i = 2; i <= 1000000; i++) {
-//            query.append(", ").append(Integer.toString(i));
-//        }
-//        query.append(")");
-//
-//        SimpleStatement statement = new SimpleStatement(query.toString());
-//
-//        long start = System.currentTimeMillis();
-//
-//        executeQuery(-1, "_DELETED_DATA", "", session, statement);
-//
-//        long end = System.currentTimeMillis();
-//
-//        double duration = (end - start) / 1000.0;
-//
-//        System.out.println(duration);
-
-
-        PreparedStatement delete = session.prepare(DELETE_QUERY_MANY_KEYS);
-        for (int i = 1; i <= 100000; i++) {
-            BoundStatement boundStatement = delete.bind(i);
-            executeQuery(-1, "_DELETED_DATA", Integer.toString(i), session, boundStatement);
-//            System.out.println(i);
+        StringBuilder query = new StringBuilder("SELECT * FROM air_traffic WHERE \"Id\" IN (1");
+        for (int i = 2; i <= 1000000; i++) {
+            query.append(", ").append(Integer.toString(i));
         }
-        System.out.println(new Date().toString() + " Deleted data.");
+        query.append(")");
 
-
-
-        PreparedStatement statement1 = session.prepare(LOOKUP_QUERY_MANY_KEYS);
+        SimpleStatement statement = new SimpleStatement(query.toString());
 
         long start = System.currentTimeMillis();
 
-        for (int i = 1; i <= 100000; i++) {
-            BoundStatement boundStatement = statement1.bind(i);
-            executeQuery(-1, "_DELETED_DATA", Integer.toString(i), session, boundStatement);
-//            System.out.println(i);
-        }
+        executeQuery(-1, "_DELETED_DATA", "", session, statement);
 
         long end = System.currentTimeMillis();
 
         double duration = (end - start) / 1000.0;
 
         System.out.println(duration);
+
+
+//        PreparedStatement delete = session.prepare(DELETE_QUERY_MANY_KEYS);
+//        for (int i = 1; i <= 100000; i++) {
+//            BoundStatement boundStatement = delete.bind(i);
+//            executeQuery(-1, "_DELETED_DATA", Integer.toString(i), session, boundStatement);
+////            System.out.println(i);
+//        }
+//        System.out.println(new Date().toString() + " Deleted data.");
+//
+//
+//
+//        PreparedStatement statement1 = session.prepare(LOOKUP_QUERY_MANY_KEYS);
+//
+//        long start = System.currentTimeMillis();
+//
+//        for (int i = 1; i <= 100000; i++) {
+//            BoundStatement boundStatement = statement1.bind(i);
+//            executeQuery(-1, "_DELETED_DATA", Integer.toString(i), session, boundStatement);
+////            System.out.println(i);
+//        }
+//
+//        long end = System.currentTimeMillis();
+//
+//        double duration = (end - start) / 1000.0;
+//
+//        System.out.println(duration);
     }
 
     private static void runInsertionTest(Session session, PreparedStatement preparedStatement) throws FileNotFoundException {
